@@ -1,3 +1,8 @@
+// lecture week 1
+// correct example of using cin >> string;
+// introduce the concept of cin.ignore()
+// built-in function getline() to cin everything in the line including white spaces
+
 #include <iostream>
 #include <string>
 using namespace std;
