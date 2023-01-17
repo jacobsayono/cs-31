@@ -1,0 +1,30 @@
+Jacob Sayono
+505368811
+
+In this project, we are introduced to errors within computer programs that are bound to happen.
+We separate the errors in this project to 2 categories: logic errors and compile errors.
+Logic errors happen when the program successfully compiles but does not give the intended result that the programmer desired.
+Compile errors happen when the program does not even compile in the first place, which can happen because of a wrong syntax or an illegal action.
+
+Example 1: logic_error.cpp
+1) In line 27 (and 28): I changed the variable names in the "total = ..." equation to a wrong variable name. This ended up making my program output the total (when the user inputs a correct integer) as 135 instead of 100.
+2) In line 42: I changed "if (total != 100)" to "(total = 100)". This means that the awry statement will only print out when total = 100, which is suppose to be all numbers except 100. In this program, the statement will print if I write 0 and 0 for both the input prompts.
+
+Example 2: compile_error.cpp
+1) In line 12, I changed 50 to "50". This made the variable CURRENT_DEMOCRATS, which was declared as an int, defined as a character or string.
+2) In line 45, I removed a semicolon at the end of the line. C++ syntax requires using ";" to separate lines within the program.
+
+Here are my results when attempting to compile the program:
+jacobsayono@JS:cs31/project1   master 🛤️×1  v9.4.0 ＄ g++ compile_error.cpp 
+compile_error.cpp: In function ‘int main()’:
+compile_error.cpp:12:34: error: invalid conversion from ‘const char*’ to ‘int’ [-fpermissive]
+   12 |    const int CURRENT_DEMOCRATS = "50";
+      |                                  ^~~~
+      |                                  |
+      |                                  const char*
+compile_error.cpp:45:19: error: expected ‘;’ before ‘}’ token
+   45 |       cout << endl
+      |                   ^
+      |                   ;
+   46 |    }
+      |    ~
