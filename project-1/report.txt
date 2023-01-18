@@ -8,6 +8,7 @@ Compile errors happen when the program does not even compile in the first place,
 
 The first part of the project was to try input integers in the console that produce nonsensical results.
 According to the original program, if the inputs that the user put in does not add up to 35, the program will print out the "awry" statement.
+Next, we explore logic and compile erros of a program.
 
 Example 1: logic_error.cpp
 1) In line 27 (and 28): I changed the variable names in the "total = ..." equation to a wrong variable name. This ended up making my program output the total (when the user inputs a correct integer) as 135 instead of 100.
