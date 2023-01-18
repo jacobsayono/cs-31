@@ -6,6 +6,9 @@ We separate the errors in this project to 2 categories: logic errors and compile
 Logic errors happen when the program successfully compiles but does not give the intended result that the programmer desired.
 Compile errors happen when the program does not even compile in the first place, which can happen because of a wrong syntax or an illegal action.
 
+The first part of the project was to try input integers in the console that produce nonsensical results.
+According to the original program, if the inputs that the user put in does not add up to 35, the program will print out the "awry" statement.
+
 Example 1: logic_error.cpp
 1) In line 27 (and 28): I changed the variable names in the "total = ..." equation to a wrong variable name. This ended up making my program output the total (when the user inputs a correct integer) as 135 instead of 100.
 2) In line 42: I changed "if (total != 100)" to "(total = 100)". This means that the awry statement will only print out when total = 100, which is suppose to be all numbers except 100. In this program, the statement will print if I write 0 and 0 for both the input prompts.
