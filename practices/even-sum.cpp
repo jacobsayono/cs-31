@@ -28,6 +28,7 @@ int main() {
     cout << "result: " << sum << endl;
 
     // while loop version
+    sum = 0;
     int i = 0, w = 4;
     while (i < w) {
         cout << "number" << i+1 << ": ";
@@ -39,4 +40,20 @@ int main() {
         i++;
     }
     cout << "result: " << sum << endl;
+
+    // do-while loop version
+    sum = 0;
+    int j = 0, d = 4;
+    do {
+        cout << "number" << j+1 << ": ";
+        cin >> x;
+        
+        if (x % 2 == 0) {
+            sum += x;
+        }
+        j++;
+    } while (j < d);
+    cout << "result: " << sum << endl;
+
+    return 0;
 }
