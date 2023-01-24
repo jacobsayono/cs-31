@@ -1,5 +1,5 @@
-// write a program that takes in a number as an int and
-// outputs the sum of all the digits in that number
+// write a program that takes in a number as an int
+// and outputs the sum of all the digits in that number
 // please assume only 3 digit numbers will be entered
 
 // sample output:

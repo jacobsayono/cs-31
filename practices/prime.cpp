@@ -2,6 +2,9 @@
 // it has a number of bugs
 // fix them and replace the inner while loop with a for loop
 
+// n is a prime number if n is not divisible by any number other than 1 and n
+// in other words, n is a prime number if n is divisible by any number from 2 to n-1
+
 #include <iostream>
 using namespace std;
 
@@ -21,7 +24,7 @@ int main() {
                 cout << n << " ";
             }
         }
-        candidate = candidate + 1;
+        candidate++;
     }
     cout << endl;
 
