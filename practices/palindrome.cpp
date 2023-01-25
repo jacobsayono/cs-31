@@ -23,7 +23,7 @@ using namespace std;
 
 int main() {
     cout << "enter 2 numbers: " << endl;
-    
+
     int a, b;
     cout << "number1: ";
     cin >> a;
@@ -40,7 +40,10 @@ int main() {
         // stop while loop
     }
 
-    while 
+    int i = 0, n;
+    while (i < n) {
+        
+    }
 
 
     return 0;

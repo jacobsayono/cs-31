@@ -62,5 +62,52 @@ int main() {
     // cout statements easier on your eyes to bool values
     cout.setf(ios::boolalpha);
 
+    switch (i) { // int, bool, char
+        case 10:
+        case 0:
+            cout << "0 or 10" << endl;
+            break;
+        case 1:
+            cout << "1" << endl;
+        case 5:
+            cout << "5" << endl;  // prints 1 \n 5
+            break;
+        // case j:
+        // case j+1:
+        default:
+            cout << "default" << endl;
+    }
+
+    // without a switch
+    if (i == 10 || i == 0) {
+        cout << "0 or 10" << endl;
+    }
+    else if (i == 1) {
+        cout << "1" << endl << "5" << endl;
+    }
+    else if (i == 5) {
+        cout << "5" << endl;
+    }
+    else {
+        cout << "default" << endl;
+    }
+
+    switch (b) {
+        // case 0:
+        // case 1:
+        case false:
+        case true:
+    }
+
+    bool isEven(false);  // bool isEven = false;
+    if (value % 2 == 0) {
+        isEven = true;
+    }
+    cout.setf(ios::boolalpha);
+    cout << "even? " << isEven << endl;
+    if (isEven) {
+        cout << "even is true" << endl;
+    }
+
     return 0;
 }
