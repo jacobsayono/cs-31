@@ -19,6 +19,12 @@ int main() {
     cout.precision(2);          // 2 digits after decimal
     cout << I << endl;  // 10
     cout << D << endl;  // 10.00
+
+    bool b = true;
+    cout << b << endl;  // 0 or 1
+
+    cout.setf(ios::boolalpha);
+    cout << b << endl;  // true or false
     
     return 0;
 }
