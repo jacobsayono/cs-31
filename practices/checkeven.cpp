@@ -10,10 +10,6 @@ int main() {
 
     cout << checkeven(a, b, c) << endl;
 
-    // string answer;
-    // answer = checkeven(a, b, c);
-    // cout << answer << endl;
-
     return 0;
 }
 
