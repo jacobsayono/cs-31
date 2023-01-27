@@ -15,6 +15,7 @@ int main() {
 
     for (size_t counter = 0; counter < s.size(); counter++) {
         char c = s.at(counter);  // ask a string for the letter at that position
+        // chat c = s[counter];
         cout << "counter " << counter << ": " << c << endl;
     }
 
