@@ -1,0 +1,82 @@
+Jacob Sayono
+505368811
+Project 2 Accompanying Homework
+
+1.
+endlendl
+endline
+
+2.
+The program will prompt for an integer
+and prints a straight diagonal line made of "#"
+from top right to bottom left
+with the number of rows of the output print statements
+(or the total unit distances of that diagonal-looking straight line)
+equal to the input integer.
+
+3.
+#include <iostream>
+using namespace std;
+
+int main() {
+    int len;
+
+    cout << "Enter a number: ";
+    cin >> len;
+
+    for (int i = 0; i < len; i++) {
+        int j = i + 1;
+        while (j < len) {
+            cout << " ";
+            j++;
+        }
+        cout << "#" << endl;
+    }
+
+    return 0;
+}
+
+4.
+#include <iostream>
+using namespace std;
+
+int main() {
+    int len;
+
+    cout << "Enter a number: ";
+    cin >> len;
+
+    int i = 0;
+    do {
+        if (len < 0) {
+            return 0;
+        }
+        else {
+            int j = i + 1;
+            while (j < len) {
+                cout << " ";
+                j++;
+            }
+            cout << "#" << endl;
+            i++;
+        }
+    } while (i < len);
+
+    return 0;
+}
+
+5.
+switch (weekday) {
+    case 1:
+        cout << "rainy days and mondays get me down";
+        break;
+    case 2:
+        cout << "ruby tuesday";
+        break;
+    case 6:
+    case 7:
+        cout << "wonderful weekend";
+        break;
+    default:
+        cout << "regular day";
+}

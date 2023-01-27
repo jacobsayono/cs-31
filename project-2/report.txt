@@ -1,0 +1,60 @@
+Jacob Sayono
+505368811
+
+In this project, we used conditionals and logic to check for requirements,
+such as invalid inputs and calculate a recommendation score for a movie.
+
+I separated and organized my program into 2 sections within the main function:
+(1) Initializing variables and asking for inputs to assign to these variables
+(2) Using 'if', 'if else', 'else' to check for valid inputs in an ordered manner from top to bottom
+
+In the last part of (2), for the 'else' statement, I calculated the score from integer inputs and string inputs.
+
+While programming this project, I encountered 3 notable obstacles:
+(1) Variable initialization in 'if' statement vs. outside of 'if' statement
+(2) Conditional && and || operators for number ranges
+(3) 'cin' vs. 'getline()' when checking for a condition from the string assignment
+
+In (1), I learned that there is a difference in where you initialize your variables.
+For example, in line 76, if I declared:
+int actor_score = 2.0;
+inside of the 'if' statement, I realize that I would not be able to use that variable in line 96,
+where I was summing up the total scores to get one final score outside of that if statement.
+I later learned that this variable initialization has an important concept of 'scope'.
+
+In (2), I was initially confused in choosing between && and || especially for a number range.
+Linguistically, I would say:
+"If the user inputs 'theme' with an integer that is less than 1 OR greater than 10, print the invalid statement."
+However, after checking some test cases, I realize that I should use && instead because it has to check for BOTH cases to be true.
+This also applies to number ranges inside a boundary, e.g., 1 < x < 10. In C++, I would write the condition as:
+(x > 1 && x < 10)
+If I would have used ||, no matter what numbers or comparison operators I used, the condition will always be true.
+
+In (3), I realized that if I used 'cin', which would take only the part of the string until the first whitespace or breakline,
+it would be valid to use cin.ignore() for later down the program when I will use 'cin' again. This removes the '\n' in the input buffer.
+However, to my pleasant surprise, a very special case should be noted when checking for a condition of a string.
+If I use 'cin', and say that the user inputs "Yes no", the variable will be assigned with only the string "Yes",
+assuming we did cin.ignore() afterwards to get rid of the '\n' in the input buffer.
+However, this becomes an issue when I want to check that variable string condition, like in line 44:
+if else (theme != "Yes" || "No") {
+    ...
+}
+Since I input the string "Yes no", and the string "Yes" is assigned to the variable,
+the condition will only check whether "Yes" was the input, which matches and evaluates that condition.
+In reality, however, I input "Yes no", which is not just "Yes".
+Therefore, the program would assume that "Yes no" is a valid input, but it should not be!
+
+Overall, I had lots of fun programming this project and enjoyed learning the little intricacies of C++.
+
+
+
+Test cases I used:
+Invalid theme value (13, Yes, 1, Yes, Yes)
+Invalid actor value (1, asdf, 1, Yes, Yes)
+Invalid taste value (1, Yes, 13, Yes, Yes)
+Invalid thumbed_up value (1, Yes, 1, asdf, Yes)
+Invalid thumbed_down value (1, Yes, 1, Yes, asdf)
+Special case of point (3) that I talked about above (1, Yes no, 1, Yes, Yes)
+Check for correct order of invalid statement (1, Yes, 13, asdf, Yes)
+
+I also used the assistance of CodeBoard for logic errors and g++ for compile errors.
