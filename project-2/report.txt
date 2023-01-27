@@ -1,5 +1,6 @@
 Jacob Sayono
 505368811
+Project 2 Report
 
 In this project, we used conditionals and logic to check for requirements,
 such as invalid inputs and calculate a recommendation score for a movie.
