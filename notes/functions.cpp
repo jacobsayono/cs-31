@@ -13,10 +13,19 @@ using namespace std;
 // 1. declare
 int foo(double x);  // can take in multiple parameters: int foo(double x, string s, int i);
 // takes in a parameter 'double' and will return an 'int'
+// void foo(double x); means the return is nothing
+
+// if we later call the function: int foo(int x, int y) in our main
+// but we put the parameter foo('A', true)
+// we are actually sending in the integer value 65 and 1 (based on ASCII table)
 
 int bar(int i);  // by default passed by value
 // copies that value into bar
 // no connection between caller and thing that got called
+
+// "pass by value" means that the function will not be able to change the value of the passed variable
+// it can make a new variable and assign it to the value that was passed
+// but the new variable will be stored in a new location in memory 
 
 int main() {
     double e = sqrt(49);  // call function
