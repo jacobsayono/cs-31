@@ -28,5 +28,7 @@ int main() {
     cout << num << endl;
     cout << val << endl;
 
+    cout << 9/10 << endl; // 0.9 -> int always rounds down -> 0
+
     return 0;
 }

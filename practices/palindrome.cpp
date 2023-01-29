@@ -29,22 +29,21 @@ int main() {
     cin >> a;
     cout << "number2: ";
     cin >> b;
+    cin.ignore(10000, '\n');
 
-    int ones = a % 10;
-    int clip1 = a / 10;
-    int tens = clip1 % 10;
-    int clip2 = clip1 / 10; // hundreds
-
-    int next = clip2 % 10;
-    if (next == 0) {
-        // stop while loop
+    int reverse = 0;  // start with 0th place, initialized outside while loop so we can use this information outside loop
+    while (a != 0) {  // stop while loop when interated over all digits
+        int digit = a % 10;  // store right-most digit
+        reverse = reverse * 10 + digit;  // move previous digit to the left and put next digit on the right
+        a = a / 10;  // leftover after clipping right-most digit
     }
 
-    int i = 0, n;
-    while (i < n) {
-        
+    if (reverse == b) {
+        cout << "YES, your numbers ARE a palindrome!" << endl;
     }
-
+    else {
+        cout << "NO, your numbers ARE NOT a palindrome..." << endl;
+    }
 
     return 0;
 }
