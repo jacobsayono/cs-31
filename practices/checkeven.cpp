@@ -1,3 +1,10 @@
+// write a function checkeven which accepts 3 integer parameters
+// and prints YES if all three numbers are even
+// otherwise the function prints NO
+
+// then write a main program with the statements to read in 3 intergers
+// then call your function to deteremine wheteher the data entered was all even
+
 #include <iostream>
 using namespace std;
 
