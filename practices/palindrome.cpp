@@ -31,14 +31,25 @@ int main() {
     cin >> b;
     cin.ignore(10000, '\n');
 
-    int reverse = 0;  // start with 0th place, initialized outside while loop so we can use this information outside loop
+    int memory_a = a;  // placeholders
+    int memory_b = b;
+
+    int reverse_a = 0;  // start with 0th place, initialized outside while loop so we can use this information outside loop
     while (a != 0) {  // stop while loop when interated over all digits
         int digit = a % 10;  // store right-most digit
-        reverse = reverse * 10 + digit;  // move previous digit to the left and put next digit on the right
+        reverse_a = reverse_a * 10 + digit;  // move previous digit to the left and put next digit on the right
         a = a / 10;  // leftover after clipping right-most digit
     }
 
-    if (reverse == b) {
+    int reverse_b = 0;  // takes care of numbers ending with 0
+    while (b != 0) {
+        int digit = b % 10;
+        reverse_b = reverse_b * 10 + digit;
+        b = b / 10;
+    }
+
+    // numbers ending with 0 are not palindromes, negative numbers are not palindromes
+    if (reverse_a == memory_b && reverse_b == memory_a && memory_a >= 0 && memory_b >= 0) {
         cout << "YES, your numbers ARE a palindrome!" << endl;
     }
     else {
