@@ -17,6 +17,10 @@ int number(string s, size_t &index);  // can pass by reference for a more powerf
 // "456" -> 456
 // "456 abc 321" -> 456
 
+int foo(double d);
+
+bool isValidOrderString(string order);
+
 int main() {
     size_t pos;
     pos = 0;
@@ -68,6 +72,17 @@ int main() {
     assert(number("456 abc 321", pos) == 321);
     assert(pos == 11);
 
+    double d = 12.5;
+    foo(d);
+
+    assert(isValidOrderString("") == false);
+    assert(isValidOrderString("     ") == false);
+    assert(isValidOrderString("     abc") == false);
+    assert(isValidOrderString("abads") == false);
+    assert(isValidOrderString("X343fd") == false);
+    assert(isValidOrderString("444") == true);
+    assert(isValidOrderString("5:1") == true);
+
     cout << "TESTS PASSED!" << endl;
     return 0;
 }
@@ -86,6 +101,31 @@ int number(string s, size_t &index) {
 
     if (quantity != 0) {
         retvalue = quantity;
+    }
+
+    return retvalue;
+}
+
+int foo(double d) {
+    return 0 ;
+}
+
+bool isValidOrderString(string order) {
+    bool retvalue = true;
+    size_t position = 0;
+
+    int value = number(order, position);
+    if (value == -1) {
+        // invalid!
+        retvalue = false;
+    }
+    else {
+        cout << "my value is " << value << endl;
+        cout << "position is " << position << endl;
+        // after the number, char at order[position] is ':'
+        bool b = (order[position] == ':');
+        cout.setf(ios::boolalpha);
+        cout << "is order[position ] a ':'? " << b << endl;
     }
 
     return retvalue;
