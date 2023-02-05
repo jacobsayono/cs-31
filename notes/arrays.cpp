@@ -178,3 +178,15 @@ void foo(int array[], int n) {
 // FIXED == CONST
 
 // function foo() changes the array
+
+
+
+/*
+PROJECT 3 - has functions
+
+bool isValidOrderString(string order);  // coped arg that can be changed
+bool orIsValidOrderString(string &order);  // not copying and allowing to be changed and updated in the driver code
+
+// passed by const reference
+bool somethingElse(const string &order);  // not coped and locked down fixed
+*/
