@@ -95,7 +95,8 @@ int number(string s, size_t &index) {
     // hoping for digit characters
     while (index < s.size() && s.at(index) >= '0' && s.at(index) <= '9') {  // char between 0 and 9 inclusive in the string
         // char = char - char
-        char digit = s.at(index) - '0';  // convert char '0' to int 0
+        // char digit = s.at(index) - '0';  // convert char '0' to int 0
+        int digit = s.at(index) - '0';
         // int = int * int + int        
         quantity = quantity * 10 + digit;  // automatically converts 'digit' char -> int to its ASCII value
         // 'c' + 15 -> char
@@ -131,7 +132,7 @@ bool isValidOrderString(string order) {
         // after the number, char at order[position] is ':'
         bool b = (order[position] == ':');
         cout.setf(ios::boolalpha);
-        cout << "is order[position ] a ':'? " << b << endl;
+        cout << "is order[position] a ':'? " << b << endl;
     }
 
     return retvalue;
