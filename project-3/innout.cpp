@@ -165,6 +165,14 @@ int main() {
     assert(cost("2:1_2:1") == 37.80);
     assert(cost("2:2_2:1") == 34.80);
     assert(cost("xyz") == -1);
+
+    // howManyCombos()
+    assert(howManyCombos("2:1_2:1", 1) == 4);
+    assert(howManyCombos("3:1_2:2_1:3", 1) == 3);
+    assert(howManyCombos("3:1_2:2_1:3", 2) == 2);
+    assert(howManyCombos("3:1_2:2_1:3", 3) == 1);
+
+
 }
 
 // create a function to find how many options were ordered (to determine number of segments)
@@ -312,20 +320,25 @@ bool valid_option(string option) {
     }
 }
 
+// project requirement
 bool isValidOrderString(string orders) {
-    size_t index = 0;
-    int segment_number = 1;
+    size_t index = 0;  // index of the string "orders"
+    int segment_number = 1;  // keep count of the segment number
     bool return_value = true;
 
     string each_segment;
     string each_amount;
-    int each_int_amount;
-    string each_option;
+    int each_int_amount;  // amount int
+    string each_option;  // option char (string of size 1)
 
+    // initialize the sum at 0
     int sum_amount = 0;
 
     for (segment_number; segment_number <= 49; segment_number++) {  // iterate through all the segments
         each_segment = segment(orders, segment_number, index);  // construct each segment
+        if (each_segment == "") {  // ignore all the other empty strings "" in the array (which means the last filled array is the last segment)
+            break;
+        }
         if (valid_segment(each_segment) != true) {  // check segment validity
             return_value = false;
         }
@@ -357,8 +370,9 @@ bool isValidOrderString(string orders) {
     return return_value;
 }
 
+// create a function to find the cost of each segment
 double segment_cost(string segment) {
-    if (valid_segment(segment) != true) {
+    if (valid_segment(segment) != true) {  // check segment validity first
         return -1.00;
     }
 
@@ -391,26 +405,63 @@ double segment_cost(string segment) {
     return segment_cost;
 }
 
+// project requirement
 double cost(string orders) {
-    if (isValidOrderString(orders) != true) {
+    if (isValidOrderString(orders) != true) {  // check string orders validity first
         return -1.00;
     }
     // construct amount and option, similar to isValidOrderString() function
     int segment_number = 1;
     size_t index = 0;
+    string each_segment;
     double total_cost = 0;
-    
-    for (segment_number; segment_number <= 49; segment_number++) {
-        string each_segment = segment(orders, segment_number, index);
-        total_cost += segment_cost(each_segment);
+
+    for (segment_number; segment_number <= 49; segment_number++) {  // iterate through possible 49 segments
+        each_segment = segment(orders, segment_number, index);  // construct segments
+        total_cost += segment_cost(each_segment);  // sum up cost of all the segment costs
     }
     return total_cost;
 }
 
+// project requirement
 int howManyCombos(string orders, int whichCombo) {
-    return 0;
+    if (isValidOrderString(orders) != true) {
+        return -1;
+    }
+
+    // construct amount and option, similar to isValidOrderString() function
+    int segment_number = 1;
+    size_t index = 0;
+    string each_segment;
+
+    string each_amount;
+    int each_int_amount;
+    string each_option;
+    int item;
+
+    int count = 0;
+
+    // construct segments
+    for (segment_number; segment_number <= 49; segment_number++) {  // iterate through possible 49 segments
+        each_segment = segment(orders, segment_number, index);  // construct segments
+        if (each_segment == "") {  // ignore all the other empty strings "" in the array (this means the last filled array is the last segment)
+            break;
+        }
+        for (int i = 0; i < each_segment.size(); i++) {
+            each_amount = amount(each_segment);
+            each_int_amount = int_amount(each_amount);  // convert amount string to int
+
+            each_option = option(each_segment);
+            item = each_option.at(0) - '0';  // convert option string to int
+        }
+        if (item == whichCombo) {  // if whichCombo matches the item in the segment
+            count += each_int_amount;  // sum up all the amount of that item
+        }
+    }
+    return count;
 }
 
+// project requirement
 int howManyShakes(string orders, string whichShake) {
     return 0;
 }
