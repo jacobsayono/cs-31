@@ -156,6 +156,8 @@ int main() {
     assert(isValidOrderString("40:1_10:2_1:3") == false);
     assert(isValidOrderString("1:1_2") == false);
 
+    assert(isValidOrderString("1:1_") == false);
+
     // segment_cost()
     assert(segment_cost("4:1") == 37.80);
     assert(segment_cost("xyz") == -1);
@@ -177,6 +179,9 @@ int main() {
     assert(howManyShakes("3:C_2:S_1:V", "C") == 3);
     assert(howManyShakes("3:C_2:S_1:V", "S") == 2);
     assert(howManyShakes("3:C_2:S_1:V", "V") == 1);
+    assert(howManyShakes("1:1_3:V", "V") == 3);
+    assert(howManyShakes("3:3_1:S_1:S", "S") == 2);
+    assert(howManyShakes("1:1", "V") == 0);
 }
 
 // create a function to find how many options were ordered (to determine number of segments)
@@ -370,6 +375,13 @@ bool isValidOrderString(string orders) {
     if (orders == "") {  // check for empty orders, which overwrites the permission for empty segments
         return_value = false;
     }
+    
+    if (orders.size() > 1) {
+    char last_digit = orders.at(orders.size() - 1);
+        if (last_digit == '_') {  // valid_segment() did not check when the orders string ends with a '_" char, so check it here
+            return_value = false;
+        }
+    }
 
     return return_value;
 }
@@ -458,10 +470,16 @@ int howManyCombos(string orders, int whichCombo) {
             each_option = option(each_segment);
             item = each_option.at(0) - '0';  // convert option string to int
         }
+
         if (item == whichCombo) {  // if whichCombo matches the item in the segment
             count += each_int_amount;  // sum up all the amount of that item
         }
+
     }
+    // if (count == 0) {
+    //     return -1;
+    // }
+
     return count;
 }
 
@@ -495,9 +513,15 @@ int howManyShakes(string orders, string whichShake) {
 
             each_option = option(each_segment);
         }
+
         if (each_option == whichShake) {  // if whichShake (string) matches the option (string) in the segment
             count += each_int_amount;  // sum up all the amount of that option
         }
     }
+
+    // if (count == 0) {
+    //     return -1;
+    // }
+    
     return count;
 }
