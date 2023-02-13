@@ -35,16 +35,13 @@ string option(string segment);
 // check validity of option
 bool valid_option(string option);
 
-
-
-
-
-
-
 // returns true if parameter is a well-formed order string
 bool isValidOrderString(string orders);
 
-// returns total cost for all the order. invalid order string returns -1.00
+// returns segment cost for all the order
+double segment_cost(string segment);
+
+// returns total cost for the whole order. invalid order string returns -1.00
 double cost(string orders);
 
 // count number of combo orders. int whichCombo must be 1, 2, 3. return -1 if anything else.
@@ -73,11 +70,6 @@ int main() {
     assert(segment(s, 5, index) == "");
     assert(segment(s, 50, index) == "invalid segment number");
 
-    string segment1 = segment(s, 1, index);
-    string segment2 = segment(s, 2, index);
-    string segment3 = segment(s, 3, index);
-    cout << segment1 << " " << segment2 << " " << segment3 << endl;
-
     string massive = "1:1_2:2_3:3_1:C_1:S_1:V_2:V_3:V_12:S";  // 9 segments
     assert(segment(massive, 9, index) == "12:S");
     assert(segment(massive, 10, index) == "");
@@ -92,7 +84,7 @@ int main() {
     assert(valid_segment(empty) == true);
 
     // amount()
-    assert(amount(segment2) == "20");
+    assert(amount("20:3") == "20");
 
     // int_amount()
     assert(int_amount("20") == 20);
@@ -163,6 +155,16 @@ int main() {
     assert(isValidOrderString("40:1_10:1_1:1") == false);
     assert(isValidOrderString("40:1_10:2_1:3") == false);
     assert(isValidOrderString("1:1_2") == false);
+
+    // segment_cost()
+    assert(segment_cost("4:1") == 37.80);
+    assert(segment_cost("xyz") == -1);
+
+    // cost()
+    assert(cost("4:1") == 37.80);
+    assert(cost("2:1_2:1") == 37.80);
+    assert(cost("2:2_2:1") == 34.80);
+    assert(cost("xyz") == -1);
 }
 
 // create a function to find how many options were ordered (to determine number of segments)
@@ -237,6 +239,7 @@ string amount(string segment) {
 }
 
 // create a function to convert string to int
+// this function also checks for valid "amount" in the string order
 int int_amount(string amount) {
     if (amount.size() == 1) {
         if (amount.at(0) >= '1' && amount.at(0) <= '9') {  // if the amount is 0, the order is not valid
@@ -352,4 +355,62 @@ bool isValidOrderString(string orders) {
     }
 
     return return_value;
+}
+
+double segment_cost(string segment) {
+    if (valid_segment(segment) != true) {
+        return -1.00;
+    }
+
+    string each_amount;
+    int each_int_amount;  // focus on this
+    string each_option;  // focus on this
+
+    double option_cost;
+    double segment_cost = 0;
+
+    for (int k = 0; k < segment.size(); k++) {
+        each_amount = amount(segment);
+        each_int_amount = int_amount(each_amount);
+        each_option = option(segment);
+        // determine the cost of each option (1, 2, 3, C, S, V)
+        if (each_option == "1") {
+            option_cost = 9.45;
+        }
+        if (each_option == "2") {
+            option_cost = 7.95;
+        }
+        if (each_option == "3") {
+            option_cost = 7.55;
+        }
+        if (each_option == "C" || each_option == "S" || each_option == "V") {
+            option_cost = 2.85;
+        }
+        segment_cost = each_int_amount * option_cost;  // sum the total cost of each segment altogether
+    }
+    return segment_cost;
+}
+
+double cost(string orders) {
+    if (isValidOrderString(orders) != true) {
+        return -1.00;
+    }
+    // construct amount and option, similar to isValidOrderString() function
+    int segment_number = 1;
+    size_t index = 0;
+    double total_cost = 0;
+    
+    for (segment_number; segment_number <= 49; segment_number++) {
+        string each_segment = segment(orders, segment_number, index);
+        total_cost += segment_cost(each_segment);
+    }
+    return total_cost;
+}
+
+int howManyCombos(string orders, int whichCombo) {
+    return 0;
+}
+
+int howManyShakes(string orders, string whichShake) {
+    return 0;
 }
