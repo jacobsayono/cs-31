@@ -1,0 +1,234 @@
+Jacob Sayono
+505368811
+Project 3 Report
+
+
+In this project, we used functions, string manipulation, and arrays
+to determine whether a given input string is what we desired.
+By creating mini-functions that help each other, we can create all sorts
+of solutions such as finding the cost of an order in the string,
+or finding the number of a certain order.
+
+
+At first glance, this seemed like a simple project. However, as I began writing assert statements,
+I realized how complicated this can get to make sure every test case passed for all functions.
+
+
+Before I started on the project, the TA mentioned that we can use the built-in substr() function,
+but I ended up not using it at all because I realized that the amount number (before the colon)
+can either be one digit or two digit. This means that 2 digit numbers will continue to push
+the index of every element in the string by one.
+
+
+I decided to break this problem down into little parts.
+I created over 10 functions to help each other and get to the project requirements.
+
+
+Here is the general idea that I designed to create my solution:
+
+(1) Break the string into little segments separated by '_'
+(2) From the little segments, break it into 2 more pieces (left side and right side of ':'
+(3) Verify the validity of the segments, the amount number, and the item character
+
+
+To get into the details I created these functions (implemented the algorithm from top to bottom):
+
+(1) int number_of_underscores(string orders);
+(2) string save_segment(string orders, size_t &index);
+(3) string segment(string orders, int n, size_t &index);
+(4) bool valid_segment(string segment);
+
+(5) string amount(string segment);
+(6) int int_amount(string amount);
+(7) bool valid_amount(int int_amount);
+
+(8) string option(string segment);
+(9) bool valid_option(string option);
+
+(10) bool isValidOrderString(string orders);
+
+(11) double segment_cost(string segment);
+(12) double cost(string orders);
+
+(13) int howManyCombos(string orders, int whichCombo);
+(14) int howManyShakes(string orders, string whichShake);
+
+
+Here is my further explanation for each function:
+
+(1) Determine the number of segments in the string
+(2) Save a segment in the string (into an array, so that we can iterate through the array to
+   find all the string segments given the segment number)
+(3) Pull out segment n in the string (using for loop)
+(4) Check validity of segment
+
+(5) Check the amount in a segment (left side of ':')
+(6) Convert amount (char) to amount (int)
+(7) Check validity of amount
+
+(8) Check the item in a segment (right side of ':')
+(9) Check validity of item
+
+(10) Loop through the array of segments
+     Call function (4), (7), and (9)
+     Also, check if the amount of items all add up to be less than 50
+     Also, check that the string is not empty
+     Also, check that the last digit in the string is not a '_' because (4) did not check that
+     
+	A neat feature I implemented: the array has a maximum size of 49,
+	because if all segments are of amount number 1 (they cannot be 0),
+	then the max amount of segments possible in a given string is 49.
+	
+(11) Find the cost of each segment
+(12) Find the cost of the total order by summing all the cost of each segment
+
+(13) Count the number of combos in the order
+(14) Count the number of shakes in the order
+
+
+For further details of each function implementation, I have documented in my program with
+comments of how each snippet of statements work line by line.
+
+
+Here are all the test cases I tested my program with, as seen in the main() function.
+I have them ordered neatly with comments above each paragraph to test each function I implemented:
+
+size_t index;
+size_t segment_index;
+
+// number_of_underscores()
+string s = "1:1_20:2_3:3";
+assert(number_of_underscores(s) == 2);
+
+// save_segments()
+index = 4;
+assert(save_segment(s, index) == "20:2");
+
+// segment()
+assert(segment(s, 1, index) == "1:1");
+assert(segment(s, 2, index) == "20:2");
+assert(segment(s, 3, index) == "3:3");
+assert(segment(s, 5, index) == "");
+assert(segment(s, 50, index) == "invalid segment number");
+
+string massive = "1:1_2:2_3:3_1:C_1:S_1:V_2:V_3:V_12:S";  // 9 segments
+assert(segment(massive, 9, index) == "12:S");
+assert(segment(massive, 10, index) == "");
+assert(segment(massive, 0, index) == "invalid segment number");
+
+// valid_segment()
+string has_colon = "2:3";
+string no_colon = "2-3";
+string empty = "";
+assert(valid_segment(has_colon) == true);
+assert(valid_segment(no_colon) == false);
+assert(valid_segment(empty) == true);
+
+// amount()
+assert(amount("20:3") == "20");
+
+// int_amount()
+assert(int_amount("20") == 20);
+assert(int_amount("0") == -1);
+assert(int_amount("5") == 5);
+assert(int_amount("111") == -1);
+assert(int_amount("99") == 99);
+
+// valid_amount()
+int correct_amount_2_digits = 32;
+int correct_amount = 4;
+int zero_amount = 0;
+int too_large_amount = 50;
+assert(valid_amount(correct_amount_2_digits) == true);
+assert(valid_amount(correct_amount) == true);
+assert(valid_amount(zero_amount) == false);
+assert(valid_amount(too_large_amount) == false);
+assert(valid_amount(-1) == false);
+
+// option()
+string segment4 = "123:5";
+assert(option(segment4) == "5");
+string correct_option = "20:S";
+string wrong_option_multiple_char = "20:9S32";
+string wrong_option = "20:9";
+assert(option(correct_option) == "S");
+assert(option(wrong_option_multiple_char) == "9S32");
+assert(option(wrong_option) == "9");
+
+// valid_option()
+string C = "C";
+string c = "c";
+string one = "1";
+string four = "4";
+string haha = "9S32";
+string B = "B";
+assert(valid_option(C) == true);
+assert(valid_option(c) == false);
+assert(valid_option(one) == true);
+assert(valid_option(four) == false);
+assert(valid_option(haha) == false);
+assert(valid_option(B) == false);
+
+// isValidOrderString()
+assert(isValidOrderString("1:1_1:2_1:3_1:C_1:S_1:V") == true);
+assert(isValidOrderString("10:1") == true);
+assert(isValidOrderString("1:1_5:1_4:1") == true);
+assert(isValidOrderString("4:1") == true);
+assert(isValidOrderString("2:1_2:1") == true);
+assert(isValidOrderString("2:2_2:1") == true);
+assert(isValidOrderString("2:1_1:C") == true);
+
+assert(isValidOrderString("xyz") == false);
+assert(isValidOrderString("1:c") == false);
+assert(isValidOrderString("1:1 zzz") == false);
+assert(isValidOrderString("100:1") == false);
+assert(isValidOrderString("10:1_20:1_30:2") == false);
+assert(isValidOrderString("40:1_10:2_1:3") == false);
+assert(isValidOrderString("40:C_10:V_1:S") == false);
+assert(isValidOrderString("40:1_10:2") == false);
+assert(isValidOrderString("40:C_10:V") == false);
+assert(isValidOrderString("40 : C") == false);
+assert(isValidOrderString("4:5") == false);
+assert(isValidOrderString("+4:1") == false);
+assert(isValidOrderString("1:1_2:2_0:3") == false);
+assert(isValidOrderString("1:1_-12:2") == false);
+assert(isValidOrderString("500:1_500:2") == false);
+assert(isValidOrderString("40:1_10:1_1:1") == false);
+assert(isValidOrderString("40:1_10:2_1:3") == false);
+assert(isValidOrderString("1:1_2") == false);
+
+assert(isValidOrderString("1:1_") == false);
+
+// segment_cost()
+assert(segment_cost("4:1") == 37.80);
+assert(segment_cost("xyz") == -1);
+
+// cost()
+assert(cost("4:1") == 37.80);
+assert(cost("2:1_2:1") == 37.80);
+assert(cost("2:2_2:1") == 34.80);
+assert(cost("xyz") == -1);
+
+// howManyCombos()
+assert(howManyCombos("2:1_2:1", 1) == 4);
+assert(howManyCombos("3:1_2:2_1:3", 1) == 3);
+assert(howManyCombos("3:1_2:2_1:3", 2) == 2);
+assert(howManyCombos("3:1_2:2_1:3", 3) == 1);
+
+// howManyShakes()
+assert(howManyShakes("2:C_2:C", "Chocolate") == 4);
+assert(howManyShakes("3:C_2:S_1:V", "Chocolate") == 3);
+assert(howManyShakes("3:C_2:S_1:V", "Strawberry") == 2);
+assert(howManyShakes("3:C_2:S_1:V", "Vanilla") == 1);
+assert(howManyShakes("1:1_3:V", "Vanilla") == 3);
+assert(howManyShakes("3:3_1:S_1:S", "Strawberry") == 2);
+assert(howManyShakes("1:1", "Vanilla") == 0);
+assert(howManyShakes("3:C", "chocolate") == -1);
+assert(howManyShakes("3:C", "c") == -1);
+assert(howManyShakes("1:Chocolate", "Chocolate") == -1);
+
+
+Overall, this was a very fun project and it would be very interesting to see how
+In N Out actually implements a software architecture to take in orders from customers efficiently.
+I would imagine an application coming from the drive-thru or the dine-in, and how the software
+can sort all these queing orders to make sure the customer is satisfied with their wait times.

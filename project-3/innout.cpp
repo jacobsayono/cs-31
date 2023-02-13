@@ -175,13 +175,16 @@ int main() {
     assert(howManyCombos("3:1_2:2_1:3", 3) == 1);
 
     // howManyShakes()
-    assert(howManyShakes("2:C_2:C", "C") == 4);
-    assert(howManyShakes("3:C_2:S_1:V", "C") == 3);
-    assert(howManyShakes("3:C_2:S_1:V", "S") == 2);
-    assert(howManyShakes("3:C_2:S_1:V", "V") == 1);
-    assert(howManyShakes("1:1_3:V", "V") == 3);
-    assert(howManyShakes("3:3_1:S_1:S", "S") == 2);
-    assert(howManyShakes("1:1", "V") == 0);
+    assert(howManyShakes("2:C_2:C", "Chocolate") == 4);
+    assert(howManyShakes("3:C_2:S_1:V", "Chocolate") == 3);
+    assert(howManyShakes("3:C_2:S_1:V", "Strawberry") == 2);
+    assert(howManyShakes("3:C_2:S_1:V", "Vanilla") == 1);
+    assert(howManyShakes("1:1_3:V", "Vanilla") == 3);
+    assert(howManyShakes("3:3_1:S_1:S", "Strawberry") == 2);
+    assert(howManyShakes("1:1", "Vanilla") == 0);
+    assert(howManyShakes("3:C", "chocolate") == -1);
+    assert(howManyShakes("3:C", "c") == -1);
+    assert(howManyShakes("1:Chocolate", "Chocolate") == -1);
 }
 
 // create a function to find how many options were ordered (to determine number of segments)
