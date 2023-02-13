@@ -26,11 +26,17 @@ string amount(string segment);
 // convert amount char to amount int
 int int_amount(string amount);
 
-// check validity of amount;
+// check validity of amount
 bool valid_amount(int int_amount);
 
 // check the option in a segment (right side of ':')
 string option(string segment);
+
+// check validity of option
+bool valid_option(string option);
+
+
+
 
 
 
@@ -52,41 +58,112 @@ int main() {
     size_t index;
     size_t segment_index;
 
+    // number_of_underscores()
     string s = "1:1_20:2_3:3";
     assert(number_of_underscores(s) == 2);
 
+    // save_segments()
     index = 4;
     assert(save_segment(s, index) == "20:2");
 
+    // segment()
     assert(segment(s, 1, index) == "1:1");
     assert(segment(s, 2, index) == "20:2");
     assert(segment(s, 3, index) == "3:3");
+    assert(segment(s, 5, index) == "");
+    assert(segment(s, 50, index) == "invalid segment number");
 
-    string one = segment(s, 1, index);
-    string two = segment(s, 2, index);
-    string three = segment(s, 3, index);
-    cout << one << " " << two << " " << three << endl;
+    string segment1 = segment(s, 1, index);
+    string segment2 = segment(s, 2, index);
+    string segment3 = segment(s, 3, index);
+    cout << segment1 << " " << segment2 << " " << segment3 << endl;
 
-    string nope = "F:2";
-    // assert(isValidSegment(one) == true);
-    // assert(isValidSegment(nope) == false);
+    string massive = "1:1_2:2_3:3_1:C_1:S_1:V_2:V_3:V_12:S";  // 9 segments
+    assert(segment(massive, 9, index) == "12:S");
+    assert(segment(massive, 10, index) == "");
+    assert(segment(massive, 0, index) == "invalid segment number");
 
+    // valid_segment()
+    string has_colon = "2:3";
+    string no_colon = "2-3";
+    string empty = "";
+    assert(valid_segment(has_colon) == true);
+    assert(valid_segment(no_colon) == false);
+    assert(valid_segment(empty) == true);
+
+    // amount()
+    assert(amount(segment2) == "20");
+
+    // int_amount()
+    assert(int_amount("20") == 20);
+    assert(int_amount("0") == -1);
+    assert(int_amount("5") == 5);
+    assert(int_amount("111") == -1);
+    assert(int_amount("99") == 99);
+
+    // valid_amount()
+    int correct_amount_2_digits = 32;
+    int correct_amount = 4;
+    int zero_amount = 0;
+    int too_large_amount = 50;
+    assert(valid_amount(correct_amount_2_digits) == true);
+    assert(valid_amount(correct_amount) == true);
+    assert(valid_amount(zero_amount) == false);
+    assert(valid_amount(too_large_amount) == false);
+    assert(valid_amount(-1) == false);
+
+    // option()
+    string segment4 = "123:5";
+    assert(option(segment4) == "5");
+    string correct_option = "20:S";
+    string wrong_option_multiple_char = "20:9S32";
+    string wrong_option = "20:9";
+    assert(option(correct_option) == "S");
+    assert(option(wrong_option_multiple_char) == "9S32");
+    assert(option(wrong_option) == "9");
+
+    // valid_option()
+    string C = "C";
+    string c = "c";
+    string one = "1";
+    string four = "4";
+    string haha = "9S32";
+    string B = "B";
+    assert(valid_option(C) == true);
+    assert(valid_option(c) == false);
+    assert(valid_option(one) == true);
+    assert(valid_option(four) == false);
+    assert(valid_option(haha) == false);
+    assert(valid_option(B) == false);
+
+    // isValidOrderString()
+    assert(isValidOrderString("1:1_1:2_1:3_1:C_1:S_1:V") == true);
+    assert(isValidOrderString("10:1") == true);
+    assert(isValidOrderString("1:1_5:1_4:1") == true);
+    assert(isValidOrderString("4:1") == true);
+    assert(isValidOrderString("2:1_2:1") == true);
+    assert(isValidOrderString("2:2_2:1") == true);
+    assert(isValidOrderString("2:1_1:C") == true);
+
+    assert(isValidOrderString("xyz") == false);
+    assert(isValidOrderString("1:c") == false);
+    assert(isValidOrderString("1:1 zzz") == false);
+    assert(isValidOrderString("100:1") == false);
+    assert(isValidOrderString("10:1_20:1_30:2") == false);
+    assert(isValidOrderString("40:1_10:2_1:3") == false);
+    assert(isValidOrderString("40:C_10:V_1:S") == false);
+    assert(isValidOrderString("40:1_10:2") == false);
+    assert(isValidOrderString("40:C_10:V") == false);
+    assert(isValidOrderString("40 : C") == false);
+    assert(isValidOrderString("4:5") == false);
+    assert(isValidOrderString("+4:1") == false);
+    assert(isValidOrderString("1:1_2:2_0:3") == false);
+    assert(isValidOrderString("1:1_-12:2") == false);
+    assert(isValidOrderString("500:1_500:2") == false);
+    assert(isValidOrderString("40:1_10:1_1:1") == false);
+    assert(isValidOrderString("40:1_10:2_1:3") == false);
+    assert(isValidOrderString("1:1_2") == false);
 }
-
-// bool isValidOrderString(string orders) {
-//     for (int i = 0; i < orders.size(); i++) {
-//         if ((orders.at(i) < '0' || orders.at(i) > '9') && orders.at(i) != 'C' && orders.at(i) != 'V' && orders.at(i) != 'S') {
-//             return false;            
-//         }
-//     }
-// }
-
-
-
-
-
-
-
 
 // create a function to find how many options were ordered (to determine number of segments)
 int number_of_underscores(string orders) {
@@ -115,22 +192,18 @@ string save_segment(string orders, size_t &index) {
 string segment(string orders, int n, size_t &index) {
     // call function to determine the number of underscores we will be working on (which tells us how many segments in the string)
     int sum_underscores = number_of_underscores(orders);
-    index = 0;
-
-    // there can only be a maximum of 6 segments for a valid order string
-    string segment1 = "", segment2 = "", segment3 = "", segment4 = "", segment5 = "", segment6 = "";
+    index = 0;  // this line is only used for individual asserts
 
     // create an array storing all the string segments. if there is no more segments after a segment, those segments will be stored as "".
-    string stored_segment[6];
-    for (int j = 0; j < 6; j++) {
-        // string stored_segment[] = {segment1, segment2, segment3, segment4, segment5, segment6};
+    string stored_segment[49];  // max possible number of segments in a valid string order is 49 elements
+    for (int j = 0; j < 49; j++) {
         stored_segment[j] = save_segment(orders, index);
         index++;
     }
 
     // return the specific segment given the segment number n
-    if (n >= 1 && n <= 6) {
-        return stored_segment[n-1];
+    if (n >= 1 && n <= 49) {
+        return stored_segment[n - 1];
     }
     else {
         return "invalid segment number";
@@ -144,6 +217,9 @@ bool valid_segment(string segment) {
         if (segment.at(i) == ':') {  // there has to be at least one ':' in the segment
             return_value = true;
         }
+    }
+    if (segment == "") {  // allow empty segment, but later in isValidStringOrder(), DO NOT allow empty string
+        return_value = true;
     }
     return return_value;
 }
@@ -193,7 +269,7 @@ int int_amount(string amount) {
 
 // create a function to check validity of the amount
 bool valid_amount(int int_amount) {
-    if (int_amount >= 0 && int_amount <= 50) {  // the requirement is that a single item amount must be between 1 and 49
+    if (int_amount >= 1 && int_amount <= 49) {  // the requirement is that a single item amount must be between 1 and 49
         return true;
     }
     else {
@@ -204,26 +280,76 @@ bool valid_amount(int int_amount) {
 // create a function that checks the option in the segment (right side of ':')
 string option(string segment) {
     string option = "";
-    for (int i = 0; i < segment.size(); i++) {
-        if (segment.at(i) == ':') {
-            option += segment.at(i);
+    int i = 0;
+    for (; i < segment.size(); i++) {
+        if (segment.at(i) == ':') {  // find the ':'
+            break;
         }
+    }
+    i++;  // add index by 1 so that we start looking at the element AFTER the ':'
+    for (; i < segment.size(); i++) {
+        option += segment.at(i);  // record everything to the right of the ':'
     }
     return option;
 }
 
 // create a function to check validity of the option
 bool valid_option(string option) {
-    if (option.size() != 1) {
+    if (option.size() != 1) {  // option must be 1 digit (string of size 1, i.e., a char)
         return false;
     }
-    else {
+    else {  // now that we know the option is 1 char...
         char kind = option.at(0);
-        if (kind == '1' || kind == '2' || kind == '3' || kind == 'C' || kind == 'S' || kind == 'V') {
+        if (kind == '1' || kind == '2' || kind == '3' || kind == 'C' || kind == 'S' || kind == 'V') {  // that 1 digit char must be either of these 6 chars
             return true;
         }
         else {
             return false;
         }
     }
+}
+
+bool isValidOrderString(string orders) {
+    size_t index = 0;
+    int segment_number = 1;
+    bool return_value = true;
+
+    string each_segment;
+    string each_amount;
+    int each_int_amount;
+    string each_option;
+
+    int sum_amount = 0;
+
+    for (segment_number; segment_number <= 49; segment_number++) {  // iterate through all the segments
+        each_segment = segment(orders, segment_number, index);  // construct each segment
+        if (valid_segment(each_segment) != true) {  // check segment validity
+            return_value = false;
+        }
+
+        for (int i = 0; i < each_segment.size(); i++) {  // iterate through a single segment
+            each_amount = amount(each_segment);  // consturct each amount (string)
+            each_int_amount = int_amount(each_amount);  // construch each amount (int)  
+            if (valid_amount(each_int_amount) != true) {  // check amount validity
+                return_value = false;
+            }
+            else {
+                sum_amount += each_int_amount;  // add up all the amount values
+            }
+            if (sum_amount >= 50) {  // check that the sum of all amount is less than 50 items
+                return_value = false;
+            }
+
+            each_option = option(each_segment);  // construct each option
+            if (valid_option(each_option) != true) {  // check option validity
+                return_value = false;
+            }
+        }
+    }
+
+    if (orders == "") {  // check for empty orders, which overwrites the permission for empty segments
+        return_value = false;
+    }
+
+    return return_value;
 }
