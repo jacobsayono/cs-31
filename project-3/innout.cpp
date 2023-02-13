@@ -172,7 +172,11 @@ int main() {
     assert(howManyCombos("3:1_2:2_1:3", 2) == 2);
     assert(howManyCombos("3:1_2:2_1:3", 3) == 1);
 
-
+    // howManyShakes()
+    assert(howManyShakes("2:C_2:C", "C") == 4);
+    assert(howManyShakes("3:C_2:S_1:V", "C") == 3);
+    assert(howManyShakes("3:C_2:S_1:V", "S") == 2);
+    assert(howManyShakes("3:C_2:S_1:V", "V") == 1);
 }
 
 // create a function to find how many options were ordered (to determine number of segments)
@@ -463,5 +467,37 @@ int howManyCombos(string orders, int whichCombo) {
 
 // project requirement
 int howManyShakes(string orders, string whichShake) {
-    return 0;
+    if (isValidOrderString(orders) != true) {
+        return -1;
+    }
+
+    // construct amount and option, similar to isValidOrderString() function
+    int segment_number = 1;
+    size_t index = 0;
+    string each_segment;
+
+    string each_amount;
+    int each_int_amount;
+    string each_option;
+    string item;
+
+    int count = 0;
+
+    // construct segments
+    for (segment_number; segment_number <= 49; segment_number++) {  // iterate through possible 49 segments
+        each_segment = segment(orders, segment_number, index);  // construct segments
+        if (each_segment == "") {  // ignore all the other empty strings "" in the array (this means the last filled array is the last segment)
+            break;
+        }
+        for (int i = 0; i < each_segment.size(); i++) {
+            each_amount = amount(each_segment);
+            each_int_amount = int_amount(each_amount);  // convert amount string to int
+
+            each_option = option(each_segment);
+        }
+        if (each_option == whichShake) {  // if whichShake (string) matches the option (string) in the segment
+            count += each_int_amount;  // sum up all the amount of that option
+        }
+    }
+    return count;
 }
