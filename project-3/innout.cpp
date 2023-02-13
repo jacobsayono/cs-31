@@ -489,6 +489,19 @@ int howManyShakes(string orders, string whichShake) {
         return -1;
     }
 
+    if (whichShake == "Chocolate") {
+        whichShake = "C";
+    }
+    else if (whichShake == "Strawberry") {
+        whichShake = "S";
+    }
+    else if (whichShake == "Vanilla") {
+        whichShake = "V";
+    }
+    else {
+        return -1;
+    }
+
     // construct amount and option, similar to isValidOrderString() function
     int segment_number = 1;
     size_t index = 0;
