@@ -6,6 +6,7 @@ int locateMaximum(const string array[], int n);
 bool hasNoDuplicates(const string array[], int n);
 int countXPairs(const string array[], int n, int x);
 int findSecondToLastOccurence(const string array[], int n, string target);
+int countPunctuation(const string array[], int n);
 int flipAround(string array[], int n);
 int moveToEnd(string array[], int n, int pos);
 
@@ -34,9 +35,42 @@ int main() {
     assert(hasNoDuplicates(people, 0) == true);
     assert(hasNoDuplicates(folks, 8) == false);
 
+    // countXPairs()
     string example[5] = {"1", "10", "5", "4", "0"};
+    string better_example[6] = {"8", "-1", "3", "4", "5", "2"};
     assert(countXPairs(example, 5, 5) == 2);
+    assert(countXPairs(better_example, 6, 7) == 3);
+    assert(countXPairs(example, 5, 10) == 1);
     assert(countXPairs(example, -10, -10) == -1);
+
+    // findSecondToLastOccurence()
+    string data[5] = {"mama", "mama", "12,", "sansa", "mama"};
+    assert(findSecondToLastOccurence(data, 5, "mama") == 1);
+    assert(findSecondToLastOccurence(data, 5, "howard") == -1);
+    assert(findSecondToLastOccurence(data, 0, "mama") == -1);
+
+    // countPunctuation()
+    string sample[4] = {"4.4.3.3", "+44", "-33.098", "33.098a"};
+    assert(countPunctuation(sample, 4) == 6);
+    assert(countPunctuation(sample, -14) == -1);
+
+    // flipAround()
+    string more_people[5] = {"howard", "pixie", "barak", "joe", "donald"};
+    string reverse_people[5] = {"donald", "joe", "barak", "pixie", "howard"};
+    flipAround(more_people, 5);
+    for (int i = 0; i < 5; i++) {
+        assert(more_people[i] == reverse_people[i]);
+    }
+    assert(flipAround(more_people, 5) == 2);
+
+    // moveToEnd()
+    string cool_people[5] = {"howard", "pixie", "barak", "joe", "donald"};
+    string cool_people_moved[5] = {"howard", "barak", "joe", "donald", "pixie"};
+    moveToEnd(cool_people, 5, 1);
+    for (int i = 0; i < 5; i++) {
+        assert(cool_people[i] == cool_people_moved[i]);
+    }
+    assert(moveToEnd(cool_people, 5, 1) == 1);
 }
 
 // return the index of the largest item found in the array or -1 if n <= 0.
@@ -70,7 +104,7 @@ bool hasNoDuplicates(const string array [], int n) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i == j) {  // skip iteration j if comparing the same index (to prevent testing equality for the string in the same index)
-                    break;
+                    j++;
                 }
                 if (array[i] == array[j]) {
                     retvalue = false;
@@ -83,22 +117,56 @@ bool hasNoDuplicates(const string array [], int n) {
 
 // return the number of times that two different elements in the array sum up to the parameter value x
 int countXPairs(const string array[], int n, int x) {
-    int retvalue = 0;
+    if (n <= 0) {
+        return -1;
+    }
+    else {
+        int retvalue = 0;
+        int int_array[n];  // initialize a new array to contain integer numbers (that were initially written in string format)
+        for (int i = 0; i < n; i++) {
+            int_array[i] = stoi(array[i]);  // using std::io() function from project prompt
+        }
+        // iterate such that i,j:      0,1; 0,2; 0;3; 0;4     1,2; 1,3; 1,4;      2,3; 2,4;      3;4
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (int_array[i] + int_array[j] == x) {
+                    retvalue++;
+                }
+            }
+        }
+        return retvalue;
+    }
+}
+
+// return the second largest index that holds the target value in the array or return -1 if it is not found at all or return -1 if n <= 0
+int findSecondToLastOccurence(const string array[], int n, string target) {
+    int retvalue;
     if (n <= 0) {
         retvalue = -1;
     }
     else {
-        int int_array[n];  // initialize a new array to contain integer numbers (that were initially written in string format)
-        int sum_array[(n - 1) * (n - 1)];  // initialize a new array to contain sums of pairs, which would be the size (n - 1)^2. n - 1 because we do not count number summing itself
-        for (int i = 0; i < n; i++) {
-            int_array[i] = stoi(array[i]);  // using std::io() function from project prompt
-            for (int j = 0; i < n; i++) {
-                if (i == j) {
-                    break;
+        int c = 0;  // check if target is in the array
+        for (int i = 0; i < n - 1; i++) {
+            if (array[i] == target) {
+                c++;
+            }
+        }
+        if (c == 0) {
+            retvalue = -1;
+        }
+        else {
+            int store_index;
+            for (int i = n - 1; i >= 0; i--) {  // iterate backwards, being careful with indices
+                if (array[i] == target) {
+                    store_index = i;
+                    break;  // once we find the first occurence, break out of loop to create a new counter
                 }
-                sum_array[i] = int_array[i] + int_array[j];
-                if (sum_array[i] == x) {
-                    retvalue++;
+            }
+            store_index--;  // go to next index after first occurence (or last, since we flipped)
+            for (int i = store_index; i >= 0; i--) {  // iterate in the same direction
+                if (array[i] == target) {
+                    retvalue = i;
+                    break;  // once we find the second occurence, break out of loop so we don't accidently overwrite the index number if the target occurs again
                 }
             }
         }
@@ -106,14 +174,66 @@ int countXPairs(const string array[], int n, int x) {
     return retvalue;
 }
 
-int findSecondToLastOccurence(const string array[], int n, string target) {
-    return 0;
+// return the total number of punctuation values found in all the array elements of the passed array argument, return -1 if n <= 0
+int countPunctuation(const string array[], int n) {
+    int retvalue = 0;
+    if (n <= 0) {
+        retvalue = -1;
+    }
+    else {
+        for (int i = 0; i < n; i++) {
+            string s = array[i];
+            for (int j = 0; j < s.size(); j++) {
+                char c = s.at(j);
+                switch (c) {
+                    case '.':
+                    case ',':
+                    case '!':
+                    case ';':
+                    case '\'':
+                    case '-':
+                    case '/':
+                    case ':':
+                    case '?':
+                    case '"':
+                        retvalue++;
+                        break;
+                }
+            }
+        }
+    }
+    return retvalue;
 }
 
+// flip (reverse) items found in the array and return the number of flips it perfomed
 int flipAround(string array[], int n) {
-    return 0;
+    string stored[n];  // store original array
+    for (int i = 0; i < n; i++) {
+        stored[i] = array[i];
+    }
+
+    for (int left = 0; left < n / 2; left++) {  // left half
+        array[left] = stored[n - 1 - left];
+    }
+    for (int right = n - 1; right > n / 2; right--) {  // right half
+        array[right] = stored[n - 1 - right];
+    }
+
+    return n / 2;  // number of flips is always size of array divided by 2
 }
 
+// eliminate the item at position pos by copying all elements after it one place to the left
+// put the item that was eliminated into the last position of the array
 int moveToEnd(string array[], int n, int pos) {
-    return 0;
+    if (n <= 0 || pos >= n) {  // only 2 conditions that will not work
+        return -1;
+    }
+    else {
+        string stored = array[pos];  // store the eliminated item
+        for (int i = pos + 1; i < n; i++) {  // move all elements (starting from the right of pos) to the left by 1
+            array[i - 1] = array [i];
+        }
+        array[n - 1] = stored;  // now put back the stored element to the last index
+        return pos;  // always return position of moved element if passed the 2 conditions above
+    }
 }
