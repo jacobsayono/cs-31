@@ -1,8 +1,8 @@
 // declare datatypes
 // inside a .h file
 // declaration only, no code
-#ifndef enum
-#define enum.h
+#ifndef ENUM_H
+#define ENUM_H
 
 enum Suit {HEART, CLUB, DIAMOND, SPADE};
 
@@ -12,4 +12,4 @@ enum DaysOfTheWeek {
     WEDNESDAY
 };
 
-#endif
+#endif /* ENUM_H */
