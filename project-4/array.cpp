@@ -5,7 +5,7 @@ using namespace std;
 int locateMaximum(const string array[], int n);
 bool hasNoDuplicates(const string array[], int n);
 int countXPairs(const string array[], int n, int x);
-int findSecondToLastOccurence(const string array[], int n, string target);
+int findSecondToLastOccurrence(const string array[], int n, string target);
 int countPunctuation(const string array[], int n);
 int flipAround(string array[], int n);
 int moveToEnd(string array[], int n, int pos);
@@ -25,15 +25,25 @@ int main() {
     string folks[8] = {"samwell", "jon", "margaery", "daenerys", "tyrion", "jon", "llewmas", "noj"};
     string folks_last_index[8] = {"samwell", "jon", "margaery", "daenerys", "tyrion", "jon", "llewmas", "zzzzzzzz"};
     
+    string codeboard[7] = {"AA", "BB", "BB", "BB", "cc", "dd", "ee"};
+    string numbers[7] = {"5", "1", "5", "2", "10", "11", "15"};
+    
     // locateMaximum()
     assert(locateMaximum(folks, 8) == 4);
     assert(locateMaximum(folks_last_index, 8) == 7);
     assert(locateMaximum(folks, 0) == -1);
 
+    assert(locateMaximum(codeboard, 6) == 5);
+    // assert(locateMaximum(codeboard, 5) == 4);  // 5
+    // cout << locateMaximum(codeboard, 5) << endl;
+    assert(locateMaximum(codeboard, 7) == 6);
+
     // hasNoDuplicates()
     assert(hasNoDuplicates(people, 5) == true);
     assert(hasNoDuplicates(people, 0) == true);
     assert(hasNoDuplicates(folks, 8) == false);
+
+    assert(hasNoDuplicates(codeboard, 2) == true);
 
     // countXPairs()
     string example[5] = {"1", "10", "5", "4", "0"};
@@ -45,9 +55,9 @@ int main() {
 
     // findSecondToLastOccurence()
     string data[5] = {"mama", "mama", "12,", "sansa", "mama"};
-    assert(findSecondToLastOccurence(data, 5, "mama") == 1);
-    assert(findSecondToLastOccurence(data, 5, "howard") == -1);
-    assert(findSecondToLastOccurence(data, 0, "mama") == -1);
+    assert(findSecondToLastOccurrence(data, 5, "mama") == 1);
+    assert(findSecondToLastOccurrence(data, 5, "howard") == -1);
+    assert(findSecondToLastOccurrence(data, 0, "mama") == -1);
 
     // countPunctuation()
     string sample[4] = {"4.4.3.3", "+44", "-33.098", "33.098a"};
@@ -62,6 +72,10 @@ int main() {
         assert(more_people[i] == reverse_people[i]);
     }
     assert(flipAround(more_people, 5) == 2);
+
+    string numbers1[7] = {"5", "1", "5", "2", "10", "11", "15"};
+    string reverse_numbers[7] = {"5", "1", "5", "2", "10", "11", "15"};
+    assert(flipAround(numbers1, 6) == 3);
 
     // moveToEnd()
     string cool_people[5] = {"howard", "pixie", "barak", "joe", "donald"};
@@ -102,11 +116,11 @@ bool hasNoDuplicates(const string array [], int n) {
     }
     else {
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == j) {  // skip iteration j if comparing the same index (to prevent testing equality for the string in the same index)
-                    j++;
-                }
-                if (array[i] == array[j]) {
+            for (int j = i + 1; j < n; j++) {  // j = 0;
+                // if (i == j) {  // skip iteration j if comparing the same index (to prevent testing equality for the string in the same index)
+                //     j++;
+                // }
+                if (array[i] == array[j]) {  // check for identical elements
                     retvalue = false;
                 }
             }
@@ -139,7 +153,7 @@ int countXPairs(const string array[], int n, int x) {
 }
 
 // return the second largest index that holds the target value in the array or return -1 if it is not found at all or return -1 if n <= 0
-int findSecondToLastOccurence(const string array[], int n, string target) {
+int findSecondToLastOccurrence(const string array[], int n, string target) {
     int retvalue;
     if (n <= 0) {
         retvalue = -1;
@@ -182,10 +196,10 @@ int countPunctuation(const string array[], int n) {
     }
     else {
         for (int i = 0; i < n; i++) {
-            string s = array[i];
+            string s = array[i];  // pull out each string element in the array
             for (int j = 0; j < s.size(); j++) {
-                char c = s.at(j);
-                switch (c) {
+                char c = s.at(j);  // pull out each char element in the string
+                switch (c) {  // test for these symbols
                     case '.':
                     case ',':
                     case '!':
@@ -196,7 +210,7 @@ int countPunctuation(const string array[], int n) {
                     case ':':
                     case '?':
                     case '"':
-                        retvalue++;
+                        retvalue++;  // count +1 if there is one
                         break;
                 }
             }
@@ -215,7 +229,7 @@ int flipAround(string array[], int n) {
     for (int left = 0; left < n / 2; left++) {  // left half
         array[left] = stored[n - 1 - left];
     }
-    for (int right = n - 1; right > n / 2; right--) {  // right half
+    for (int right = n - 1; right > n / 2 - 1; right--) {  // right half
         array[right] = stored[n - 1 - right];
     }
 
