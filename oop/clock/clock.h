@@ -8,9 +8,9 @@ class Clock {
         int second;
         bool isAM;
     public:
-        Clock(int desiredHour, int desiredMinute, int desiredSecond, string ampmValue);
-        string displayStandard();
-        string displayMilitary();
+        Clock(int desiredHour, int desiredMinute, int desiredSecond, std::string ampmValue);
+        std::string displayStandard();
+        std::string displayMilitary();
 };
 
 #endif /* CLOCK_H */

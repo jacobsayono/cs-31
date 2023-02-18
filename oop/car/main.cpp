@@ -14,7 +14,7 @@ int main() {
     Car d;  // do not include () if invoking no-argument constructor
 
     // class string, object s (of that class)
-    string s = "hello world!";
+    std::string s = "hello world!";
     s.length();
 
     return 0;

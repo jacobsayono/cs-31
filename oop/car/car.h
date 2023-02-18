@@ -6,7 +6,6 @@
 // #pragma once  // VS only
 
 #include <string>
-using namespace std;
 
 class Car {
     // supports "information hiding"
@@ -19,7 +18,7 @@ class Car {
     public:  // open to everyone, e.g.: driver code
         // constructor (name exactly matches the class itself)
         // constructor helps set up the data members
-        Car(string make, string model);
+        Car(std::string make, std::string model);
         
         // if no constructors defined, c++ automatically creates a no-argument constructor
         // usually we make multiple constructors
@@ -37,8 +36,8 @@ class Car {
 
     // data
     private:  // locked away, only class itself NOT driver code
-        string mMake;
-        string mModel;
+        std::string mMake;
+        std::string mModel;
 };
 
 #endif  // basically, guards the file to be only read once

@@ -17,31 +17,30 @@
 
 #include <iostream>
 #include "car.h"
-using namespace std;
 
 Car::Car() {
     mMake = "dummy make";
     mModel = "dummy model";
 }
 
-Car::Car(string make, string model) {
+Car::Car(std::string make, std::string model) {
     mMake = make;
     mModel = model;
 }
 
 // scoping start() to class Car
 void Car::start() {
-    cout << "drive" << endl;
+    std::cout << "drive" << std::endl;
 }
 
 void Car::drive() {
-    cout << "start" << endl;
+    std::cout << "start" << std::endl;
 }
 
 void Car::stop() {
-    cout << "stop" << endl;
+    std::cout << "stop" << std::endl;
 }
 
 void Car::honk() {
-    cout << "honk" << endl;
+    std::cout << "honk" << std::endl;
 }
