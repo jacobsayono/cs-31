@@ -1,0 +1,74 @@
+BankAccount example
+"Object Orientation"
+variable of classtype
+    creating an object, making an instance
+UML (Unified Modeling Language) Diagrams
+
+
+
+Enumeration Diagram:
+{
+<enumeration> Suit
+    - HEARTS
+    - CLUBS
+    - DIAMONDS
+    - SPADES
+}
+
+
+
+Class Diagram
+    data members are marked private
+    WHY? over time, data change A LOT.
+    effect of change: everything in public changes
+        we want to mark everything private
+
+{
+BankAccount
+    - mName
+    - mBalance
+
+    + bankAccount() : BankAccount
+    + bankAccount(initName : string, initBalance : double) : BankAccount
+    + withdraw(amount : double ) : void
+    + deposit(amount : double) :void
+    + getBalance() : double
+    + getName() : string
+    + setName(name : string) : void
+}
+
+constructors "instantiation" set up the initial values of all your data members
+    bankAccount() : BankAccount
+    bankAccount(initName : string, initBalance : double) : BankAccount
+
+setters "mutator methods" changes the state of the client value of a private member
+    member variable mName : string
+    getter function setName(string) : returns void
+
+    member variable mBalance : double
+    getter function setBalance(double) : returns void
+
+getters "accessor methods" echoes back to the client value of a private member
+    member variable mName : string
+    getter function getName(void) : returns string
+
+    member variable mBalance : double
+    getter function getBalance(void) : returns double
+
+
+
+Variable Lifecycle Steps
+every variable regardless of its types go through a lifecycle set of steps as your program executes
+declared -> initialized -> free to use it -> dies off
+
+in squiggles:
+{
+    // except for case statements
+    bankAccount b;  // variable b invokes bankAccount::BankAccount()
+    // declare a variable of classtype connect to a constructor call
+    bankAccount gates("Bill Gates", 25000000);
+
+    cout << b.mName << endl;  // will not build
+    // instead, provide a getter
+    cout << b.getName() << endl;
+}
