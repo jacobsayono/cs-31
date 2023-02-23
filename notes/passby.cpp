@@ -48,3 +48,8 @@ void passByPtr(int* ptr) {
     // ptr = nullptr;
     cout << "passByPtr: " << *ptr << endl;
 }
+
+void passByPtrRef(int* &ptrRef) {
+    // see passbyptrref.cpp
+
+}
