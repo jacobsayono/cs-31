@@ -94,15 +94,23 @@ int locateMaximum(const string array[], int n) {
         retvalue = -1;
     }
     else {
-        // iterate through every index to check the string in current index is greater than the string in next index
-        for (int i = 0; i < n - 1; i++) {  // iterate n - 1 times (n = 8 -> 0 to 6 -> 7 times)
-            if (array[i] > array[i + 1]) {
-                retvalue = i;
+        // // iterate through every index to check the string in current index is greater than the string in next index
+        // for (int i = 0; i < n - 1; i++) {  // iterate n - 1 times (n = 8 -> 0 to 6 -> 7 times)
+        //     if (array[i] > array[i + 1]) {
+        //         retvalue = i;
+        //     }
+        // }
+        // // check last index since the above does not actually check the very last index (i.e., index = n - 1)
+        // if (array[n - 1] > array[retvalue]) {
+        //     retvalue = n - 1;
+        // }
+        string max = array[0];  // set first element as the maximum
+        // iterate through every index to check if the string in current index is greater than the current max value
+        for (int i = 0; i < n; i++) {
+            if (array[i] > max) {  // if the element in this current index is greater
+                retvalue = i;  // then we know the index to return is this one
+                max = array[i];  // update the max value to this new value for next iteration check
             }
-        }
-        // check last index since the above does not actually check the very last index (i.e., index = n - 1)
-        if (array[n - 1] > array[retvalue]) {
-            retvalue = n - 1;
         }
     }
     return retvalue;
@@ -239,7 +247,7 @@ int flipAround(string array[], int n) {
 // eliminate the item at position pos by copying all elements after it one place to the left
 // put the item that was eliminated into the last position of the array
 int moveToEnd(string array[], int n, int pos) {
-    if (n <= 0 || pos >= n) {  // only 2 conditions that will not work
+    if (n <= 0 || pos >= n || pos < 0) {  // only 2 conditions that will not work, 3rd condition for codeboard segmentation fault
         return -1;
     }
     else {
