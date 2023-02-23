@@ -88,13 +88,13 @@ int main() {
 }
 
 // return the index of the largest item found in the array or -1 if n <= 0.
-int locateMaximum(const string array[], int n) {
+int locateMaximum(const string array[], int n) {  // passing array[n-1]
     int retvalue;
     if (n <= 0) {
         retvalue = -1;
     }
     else {
-        // // iterate through every index to check the string in current index is greater than the string in next index
+        // // iterate through every index to check if the string in current index is greater than the string in next index
         // for (int i = 0; i < n - 1; i++) {  // iterate n - 1 times (n = 8 -> 0 to 6 -> 7 times)
         //     if (array[i] > array[i + 1]) {
         //         retvalue = i;
