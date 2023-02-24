@@ -17,4 +17,4 @@ enum plan {
     PREMIER11
 };
 
-#endif
+#endif /* ENUMS_H */

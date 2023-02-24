@@ -16,15 +16,17 @@ class BruinCard {
     
     public:
         BruinCard();
+        
         void purchaseMealPlan(MealPlan plan);
         bool hasPurchasedMealPlan();
         plan getPlan();
 
         bool eat(meal m);
+
         void startQuarter();
         void newWeek();
         void newDay();
         int mealsLeftThisWeek();
 };
 
-#endif
+#endif /* BRUINCARD_H */

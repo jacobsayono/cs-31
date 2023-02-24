@@ -9,16 +9,16 @@ namespace cs31 {  // good form to put
             double balance;
         public:
             Bank();
-            Bank(std::string iname, double ibalance);
+            Bank(std::string &iname, double &ibalance);
 
-            void setName(std::string iname);
-            void setBalance(double ibalance);
+            void setName(std::string &iname);
+            void setBalance(double &ibalance);
 
             std::string getName() const;  // good form to make getters const
             double getBalance() const;
 
-            void deposit(double ibalance);
-            void withdraw(double ibalance);
+            void deposit(double &ibalance);
+            void withdraw(double &ibalance);
     };
 }
 

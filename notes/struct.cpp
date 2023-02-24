@@ -12,12 +12,12 @@ int main() {
     b.mAuthor = "Some Guy Named Howard";
     b.mTitle = "Cold Mountain Creek";
     b.mJacketColor = BLACK;
-    b.mNumberofPages = 800;
+    b.mNumberOfPages = 800;
     b.mNumberOfPages = b.mNumberOfPages + 100;
 
     // calculations
     // first quarter of the book is chapter 1
-    int chapter1 = b.mNumberofPages / 4;
+    int chapter1 = b.mNumberOfPages / 4;
 
     b1.mAuthor = "JK Rowlings";
     b1.mTitle = "Harry Potter";

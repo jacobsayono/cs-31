@@ -7,16 +7,16 @@ namespace cs31 {
         balance = 0;
     }
 
-    Bank::Bank(std::string iname, double ibalance) {
+    Bank::Bank(std::string &iname, double &ibalance) {
         name = iname;
         balance = ibalance;
     }
 
-    void Bank::setName(std::string iname) {
+    void Bank::setName(std::string &iname) {
         name = iname;
     }
 
-    void Bank::setBalance(double ibalance) {
+    void Bank::setBalance(double &ibalance) {
         balance = ibalance;
     }
 
@@ -28,11 +28,11 @@ namespace cs31 {
         return balance;
     }
 
-    void Bank::deposit(double ibalance) {
+    void Bank::deposit(double &ibalance) {
         balance += ibalance;
     }
 
-    void Bank::withdraw(double ibalance) {
+    void Bank::withdraw(double &ibalance) {
         balance -= ibalance;
     }
 }

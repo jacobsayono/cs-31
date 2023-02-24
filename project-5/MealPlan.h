@@ -8,6 +8,7 @@ class MealPlan {
 
     public:
         MealPlan();
+        
         void pickPlan(plan p);
         plan getPlan();
         double cost();
@@ -15,4 +16,4 @@ class MealPlan {
         bool unusedMealsCarryOver();
 };
 
-#endif
+#endif /* MEALPLAN_H */
