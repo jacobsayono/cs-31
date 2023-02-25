@@ -85,4 +85,4 @@ Here are some examples of my own test cases, as neatly placed in my main() funct
     assert(moveToEnd(cool_people, 5, 1) == 1);
 
 Overall, I loved this project and felt more confident to work with arrays,
-which is an important data structure in computer science.
+which is an important data structure in computer science. 
