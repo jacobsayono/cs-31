@@ -1,3 +1,88 @@
 Jacob Sayono
 505368811
 Project 4 Report
+
+In this project, we become more familiar with arrays
+and manipulate elements and their indexes of these arrays.
+
+Some challenges I overcame were:
+1) Getting used to index counting of an array by iterating with a loop
+2) Making sure that I do not get out of bounds from the array size
+3) Finding a way to store temporary values of an element to use it findSecondToLastOccurence
+
+One common error I found on CodeBoard was getting "segmentation fault".
+Even though my code successfully compiles on g++ and passes all of my own test cases,
+CodeBoard still occasionally throws this error for some of my functions.
+I fixed this error by changing my solution such that when I compare values,
+I compare values with the current index and the index after, rather than the index before.
+Another example would be to prevent an index position to be called in my function.
+
+Here are some examples of my own test cases, as neatly placed in my main() function:
+    
+    string people[5] = {"howard", "pixie", "barak", "joe", "donald"};
+    string folks[8] = {"samwell", "jon", "margaery", "daenerys", "tyrion", "jon", "llewmas", "noj"};
+    string folks_last_index[8] = {"samwell", "jon", "margaery", "daenerys", "tyrion", "jon", "llewmas", "zzzzzzzz"};
+    
+    string codeboard[7] = {"AA", "BB", "BB", "BB", "cc", "dd", "ee"};
+    string numbers[7] = {"5", "1", "5", "2", "10", "11", "15"};
+    
+    // locateMaximum()
+    assert(locateMaximum(folks, 8) == 4);
+    assert(locateMaximum(folks_last_index, 8) == 7);
+    assert(locateMaximum(folks, 0) == -1);
+
+    assert(locateMaximum(codeboard, 6) == 5);
+    // assert(locateMaximum(codeboard, 5) == 4);  // 5
+    // cout << locateMaximum(codeboard, 5) << endl;
+    assert(locateMaximum(codeboard, 7) == 6);
+
+    // hasNoDuplicates()
+    assert(hasNoDuplicates(people, 5) == true);
+    assert(hasNoDuplicates(people, 0) == true);
+    assert(hasNoDuplicates(folks, 8) == false);
+
+    assert(hasNoDuplicates(codeboard, 2) == true);
+
+    // countXPairs()
+    string example[5] = {"1", "10", "5", "4", "0"};
+    string better_example[6] = {"8", "-1", "3", "4", "5", "2"};
+    assert(countXPairs(example, 5, 5) == 2);
+    assert(countXPairs(better_example, 6, 7) == 3);
+    assert(countXPairs(example, 5, 10) == 1);
+    assert(countXPairs(example, -10, -10) == -1);
+
+    // findSecondToLastOccurence()
+    string data[5] = {"mama", "mama", "12,", "sansa", "mama"};
+    assert(findSecondToLastOccurrence(data, 5, "mama") == 1);
+    assert(findSecondToLastOccurrence(data, 5, "howard") == -1);
+    assert(findSecondToLastOccurrence(data, 0, "mama") == -1);
+
+    // countPunctuation()
+    string sample[4] = {"4.4.3.3", "+44", "-33.098", "33.098a"};
+    assert(countPunctuation(sample, 4) == 6);
+    assert(countPunctuation(sample, -14) == -1);
+
+    // flipAround()
+    string more_people[5] = {"howard", "pixie", "barak", "joe", "donald"};
+    string reverse_people[5] = {"donald", "joe", "barak", "pixie", "howard"};
+    flipAround(more_people, 5);
+    for (int i = 0; i < 5; i++) {
+        assert(more_people[i] == reverse_people[i]);
+    }
+    assert(flipAround(more_people, 5) == 2);
+
+    string numbers1[7] = {"5", "1", "5", "2", "10", "11", "15"};
+    string reverse_numbers[7] = {"5", "1", "5", "2", "10", "11", "15"};
+    assert(flipAround(numbers1, 6) == 3);
+
+    // moveToEnd()
+    string cool_people[5] = {"howard", "pixie", "barak", "joe", "donald"};
+    string cool_people_moved[5] = {"howard", "barak", "joe", "donald", "pixie"};
+    moveToEnd(cool_people, 5, 1);
+    for (int i = 0; i < 5; i++) {
+        assert(cool_people[i] == cool_people_moved[i]);
+    }
+    assert(moveToEnd(cool_people, 5, 1) == 1);
+
+Overall, I loved this project and felt more confident to work with arrays,
+which is an important data structure in computer science.
