@@ -81,6 +81,14 @@ int main() {
 
     cout << (ref == bla) << endl;  // true
     cout << (&ref != &bla) << endl;  // false
+
+    int* ptri;
+    ptri = nullptr;  // null pointer we cannot use, points to nothing
+
+    int* badPtr = nullptr;
+    if (badPtr != nullptr)
+        *badPtr = 12;  // will build and run and crash
+
 }
 
 // pointer variables can switch to whichever address it wants
