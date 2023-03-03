@@ -113,10 +113,10 @@ bool operator ==(Number n1, Number n2) {
     // small pieces of magic...
     // ostream      that class is kinda weird
     // feature      must pass streams by reference
-    ostream &operator <<(ostream &outs, Number value);
+    ostream &operator <<(ostream &outs, const Number value);  // READ ONLY
 
     // can print out in roman numerals
-    ostream &operator <<(ostream &outs, Number value) {
+    ostream &operator <<(ostream &outs, const Number value) {
         // print out value      underlying int...       getValue()
         // "persistent" data
         int data = value.getValue();
@@ -126,6 +126,8 @@ bool operator ==(Number n1, Number n2) {
 
     Number seven = 7;
     cout << seven << endl;
+    // has the object seven been changed?
+    // do we want to see that change?
 
     int i;
     cin >> i;
@@ -139,7 +141,7 @@ bool operator ==(Number n1, Number n2) {
     istream &operator >>(istream &ins, Number &value);
 
     istream &operator >>(istream &ins, Number &value) {
-        int i;
+        int i = 0;
         ins >> i;
         value.setValue(i);
         return ins;

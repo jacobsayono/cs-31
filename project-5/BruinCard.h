@@ -5,9 +5,9 @@
 class BruinCard {
     private:
         MealPlan mPlan;
-        bool mBoughAMealPlan;
+        bool mBoughtAMealPlan;
 
-        bool hasEathenBreakfast;
+        bool hasEatenBreakfast;
         bool hasEatenLunch;
         bool hasEatenDinner;
         bool hasEatenBrunch;
