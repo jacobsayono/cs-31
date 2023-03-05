@@ -1,5 +1,4 @@
 #include "BruinCard.h"
-#include <iostream>
 
 BruinCard::BruinCard() {}  // all 'BruinCard::' functions will refer to BruinCard private members only
         
@@ -30,39 +29,53 @@ bool BruinCard::eat(meal m) {
         retValue = false;
     }
     else {
-        if (getPlan() == REGULAR11 || getPlan() == REGULAR14 || getPlan() == REGULAR19) {
-            if (hasEatenBreakfast == true || hasEatenLunch == true || hasEatenDinner == true || hasEatenBrunch == true) {
-                retValue = false;
-            }
-            else {
-                switch (m) { // meal::BREAKFAST [CONST of type integral]
-                    case BREAKFAST:
-                        hasEatenBreakfast = true;
-                        break;
-                    case LUNCH:
-                        hasEatenLunch = true;
-                        break;
-                    case DINNER:
-                        hasEatenDinner = true;
-                        break;
-                    case WEEKENDBRUNCH:
-                        hasEatenBrunch = true;
-                        break;
-                    }
+        switch (getPlan()) {
+            case REGULAR11:
+            case REGULAR14:
+            case REGULAR19:
+                if (hasEatenBreakfast == true && m == BREAKFAST) {
+                    retValue = false;
+                }
+                else if (hasEatenLunch == true && m == LUNCH) {
+                    retValue = false;
+                }
+                else if (hasEatenDinner == true && m == DINNER) {
+                    retValue = false;
+                }
+                else if (hasEatenBrunch == true && m == WEEKENDBRUNCH) {
+                    retValue = false;
+                }
+                else {
+                    switch (m){
+                       case BREAKFAST:
+                            hasEatenBreakfast = true;
+                            break;
+                        case LUNCH:
+                            hasEatenLunch = true;
+                            break;
+                        case DINNER:
+                            hasEatenDinner = true;
+                            break;
+                        case WEEKENDBRUNCH:
+                            hasEatenBrunch = true;
+                            break;
+                        }
+                        retValue = true;
+                        howManyMealsLeft -= 1; 
+                }
+                break;
+            case PREMIER11:
+            case PREMIER14:
+            case PREMIER19:
                 retValue = true;
                 howManyMealsLeft -= 1;
+                break;
             }
         }
-        if (getPlan() == PREMIER11 || getPlan() == PREMIER14 || getPlan() == PREMIER19) {
-            retValue = true;
-            howManyMealsLeft -= 1;
-        }
-    }
-    return retValue;
+        return retValue;
 }
 
 void BruinCard::startQuarter() {
-    std::cout << mBoughtAMealPlan << std::endl;
     switch(getPlan()) {  // BruinCard::getPlan() [METHOD of type enum-plan]
         case PREMIER11:
             howManyMealsLeft = 11*11;
@@ -86,7 +99,6 @@ void BruinCard::startQuarter() {
 }
 
 void BruinCard::newWeek() {
-    std::cout << mBoughtAMealPlan << std::endl;
     hasEatenBreakfast = false;
     hasEatenLunch = false;
     hasEatenDinner = false;
