@@ -5,14 +5,14 @@
 class BruinCard {
     private:
         MealPlan mPlan;
-        bool mBoughtAMealPlan;
+        bool mBoughtAMealPlan = false;
 
-        bool hasEatenBreakfast;
-        bool hasEatenLunch;
-        bool hasEatenDinner;
-        bool hasEatenBrunch;
+        bool hasEatenBreakfast = false;
+        bool hasEatenLunch = false;
+        bool hasEatenDinner = false;
+        bool hasEatenBrunch = false;
 
-        int howManyMealsLeft;
+        int howManyMealsLeft = 0;
     
     public:
         BruinCard();
