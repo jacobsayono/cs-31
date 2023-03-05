@@ -5,21 +5,16 @@ BruinCard::BruinCard() {}  // all 'BruinCard::' functions will refer to BruinCar
         
 void BruinCard::purchaseMealPlan(MealPlan plan) {
     mPlan = plan;
+    mBoughtAMealPlan = true;
 }
 
 bool BruinCard::hasPurchasedMealPlan() {
-    // mBoughtAMealPlan = false;  // BruinCard::mBoughtAMealPlan [ATTRIBUTE of type bool]
-    switch(getPlan()) {  // BruinCard::getPlan() [METHOD of type enum-plan]
-        case REGULAR11:
-        case PREMIER11:
-        case REGULAR14:
-        case PREMIER14:
-        case REGULAR19:
-        case PREMIER19:
-            mBoughtAMealPlan = true;
-            break;
+    if (mBoughtAMealPlan == true) {
+        return true;
     }
-    return mBoughtAMealPlan;
+    else {
+        return false;
+    }
 }
 
 plan BruinCard::getPlan() {
@@ -70,27 +65,21 @@ void BruinCard::startQuarter() {
     std::cout << mBoughtAMealPlan << std::endl;
     switch(getPlan()) {  // BruinCard::getPlan() [METHOD of type enum-plan]
         case PREMIER11:
-            std::cout << "bye11p" << std::endl;
             howManyMealsLeft = 11*11;
             break;
         case PREMIER14:
-            std::cout << "bye14p" << std::endl;
             howManyMealsLeft = 14*11;
             break;
         case PREMIER19:
-            std::cout << "bye19p" << std::endl;
             howManyMealsLeft = 19*11;
             break;
         case REGULAR11:
-            std::cout << "bye11r" << std::endl;
             howManyMealsLeft = 11;
             break;
         case REGULAR14:
-            std::cout << "bye14r" << std::endl;
             howManyMealsLeft = 14;
             break;
         case REGULAR19:
-            std::cout << "bye19r" << std::endl;
             howManyMealsLeft = 19;
             break;
     }
@@ -105,15 +94,12 @@ void BruinCard::newWeek() {
 
     switch(getPlan()) {  // BruinCard::getPlan() [METHOD of type enum-plan]
         case REGULAR11:
-            std::cout << "hi11r" << std::endl;
             howManyMealsLeft = 11;
             break;
         case REGULAR14:
-            std::cout << "hi14r" << std::endl;
             howManyMealsLeft = 14;
             break;
         case REGULAR19:
-            std::cout << "hi19r" << std::endl;
             howManyMealsLeft = 19;
             break;
     }
@@ -127,5 +113,10 @@ void BruinCard::newDay() {
 }
 
 int BruinCard::mealsLeftThisWeek() {
-    return howManyMealsLeft;
+    if (mBoughtAMealPlan == true) {
+        return howManyMealsLeft;
+    }
+    else {
+        return 0;
+    }
 }
