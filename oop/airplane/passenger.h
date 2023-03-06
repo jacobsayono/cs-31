@@ -13,7 +13,8 @@ namespace cs52 {
 			std::string getName() const;
 			void setName( std::string n );
 
-			friend std::ostream & operator <<( std::ostream & outs, const Passenger & p );
+			friend std::ostream & operator <<( std::ostream & outs,
+											   const Passenger & p );
 
 		private:
 			std::string myName;

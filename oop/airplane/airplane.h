@@ -10,7 +10,7 @@ namespace cs52  {
 	class Airplane {
 		public:
 			Airplane( int size = 100 );
-			~Airplane();
+			~Airplane();  // destructor was never called?
 
 			void addPassenger( Passenger p );
 			int  getMaxSize() const;

@@ -31,8 +31,8 @@ namespace cs52  {
 								const Airplane * a ) {
 		outs << "Airplane- max=" << a->getMaxSize() << std::endl;
 		for (int i = 0; i < a->myNumberOfPassengersSeenSoFar; i++) {
-			outs << "[" << i << "]-";
-			outs << a->myPassengers[ i ];
+			outs << "[" << i << "]-";  // [0]-
+			outs << a->myPassengers[ i ];  // Jacob
 		}
 		return( outs );
 	}
