@@ -1,6 +1,7 @@
 #include "bank.h"
 #include <iostream>
 #include <string>
+#include <cassert>
 
 int main() {
     // using namespace std;
@@ -37,4 +38,29 @@ int main() {
 
     std::cout << account1.getBalance() << std::endl;  // 1200
     std::cout << account2.getBalance() << std::endl;  // 800
+
+    std::string howard = "Howard";
+    std::string u = "You";
+    double hundred = 100;
+    double fifty = 50;
+    Bank me(howard, hundred);
+    Bank another(howard, fifty);
+    Bank you(u, hundred);
+
+    Bank combined = me + another;
+    assert(combined.getName() == "Howard");
+    assert(combined.getBalance() == 150.00);
+
+    if (me == you) {
+        assert(false);
+    }
+    if (me == me) {
+        assert(true);
+    }
+
+    Bank less = me - another;
+    assert(less.getName() == "Howard");
+    assert(less.getBalance() == 50.00);
+    std::cin >> less >> std::endl;
+    std::cout << less << std::endl;
 }

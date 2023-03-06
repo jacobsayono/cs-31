@@ -6,19 +6,18 @@
 
 namespace cs52 {
 
-class Passenger {
-public:
-	Passenger( std::string n = "" );
+	class Passenger {
+		public:
+			Passenger( std::string n = "" );
 
-	std::string getName() const;
-	void setName( std::string n );
+			std::string getName() const;
+			void setName( std::string n );
 
-	friend std::ostream & operator <<( std::ostream & outs,
-									   const Passenger & p );
+			friend std::ostream & operator <<( std::ostream & outs, const Passenger & p );
 
-private:
-	std::string myName;
-};
+		private:
+			std::string myName;
+	};
 
 }
 

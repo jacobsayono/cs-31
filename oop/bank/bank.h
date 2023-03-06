@@ -10,6 +10,7 @@ namespace cs31 {  // good form to put
         public:
             Bank();
             Bank(std::string &iname, double &ibalance);
+            Bank(double &ibalance);
 
             void setName(std::string &iname);
             void setBalance(double &ibalance);
@@ -19,6 +20,13 @@ namespace cs31 {  // good form to put
 
             void deposit(double &ibalance);
             void withdraw(double &ibalance);
+
+            // operator overload
+            friend Bank operator +(const Bank &left, const Bank &right);
+            friend Bank operator -(const Bank &left, const Bank &right);
+            friend bool operator ==(const Bank &left, const Bank &right);
+            friend std::ostream& operator <<(std::ostream& outs, const Bank& balance);
+            friend std::istream& operator >>(std::istream& ins, const Bank& balance);
     };
 }
 
