@@ -17,7 +17,6 @@ class Address {
         string mCity;
         string mState;
         string mZip;
-
 };
 
 class bankAccount { 
