@@ -13,16 +13,19 @@ int main() {
     try {
         check(balance);
     }
-    catch (const std::logic_error& e) {
-        std::cerr << "recover statement: " << e.what() << std::endl;
+    // catch (const std::logic_error& e) {
+    catch (std::logic_error le) {
+        std::cerr << "recover statement: " << le.what() << std::endl;
     }
 }
 
 void check(double balance) {
     if (balance < 0) {
-        std::string e = "no negative balances allowed";
         // std::string e = "no negative balances allowed";
-        throw std::logic_error(e);
+        // // std::string e = "no negative balances allowed";
+        // throw std::logic_error(e);
+        std::logic_error e ("error msg");
+        throw e;
     }
 }
 

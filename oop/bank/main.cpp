@@ -61,6 +61,6 @@ int main() {
     Bank less = me - another;
     assert(less.getName() == "Howard");
     assert(less.getBalance() == 50.00);
-    std::cin >> less >> std::endl;
+    std::cin >> less;
     std::cout << less << std::endl;
 }
