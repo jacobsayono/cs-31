@@ -71,6 +71,14 @@ void  Move::setPiece( int i, std::string s )
 void  Move::setPieces( std::string s )
 {
     // for now...
+    // check that the length of string is 4, if not throw logic_error
+    if (s.length() != REQUIREDLENGTH) {
+        throw std::logic_error("not 4-characters long");
+    }
+    // iterate through the string and set each char to the element of array
+    for (int i = 0; i < REQUIREDLENGTH; i++) {
+        array[i] = s.at(i);
+    }
 }
 
 // stringify this Move
