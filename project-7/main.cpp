@@ -228,14 +228,23 @@ int main( ) {
     // cout << b.getScoreForRound(0).to_string() << endl;
     assert( b.getScoreForRound( 0 ).to_string() == "MM__" );
 
+    // check throw logic error
+    // b.getScoreForRound(40).to_string();
+
     Mastermind game1( "rbyo" );
     assert( game1.answer() == "RBYO" );
+    Move move;
+    move.setPieces("BBBB");
+    Move answer;
+    answer.setPieces("RBYO");
+    // cout << Score(move, answer).to_string() << endl;
     assert( game1.gameIsOver() == false );
     m = game1.play( "BBBB" );
     s = game1.endRound( m );
+    // cout << s.to_string() << endl;
     assert( s.to_string() == "_R__" );
 
-    cout << "all tests passed!" << endl;
+    // cout << "all tests passed!" << endl;
 
     
     

@@ -73,16 +73,31 @@ Move  Mastermind::play(std::string turn)
 Score Mastermind::endRound( Move m )
 {
     // for now...
-    Score s;
-    return( s );
+    mBoard.getMoveForRound(mRound) = m;
+    mCurrentScore = Score(m, mWinningMove);
+    mBoard.endRound(m, mCurrentScore);
+    return mCurrentScore;
 }
 
 // TODO select the right GAMEOUTCOME for this game
 GAMEOUTCOME  Mastermind::determineGameOutcome( ) const
 {
     // for now...
-    GAMEOUTCOME outcome = GAMENOTOVER;
-    return( outcome );
+    GAMEOUTCOME outcome;
+    if (mCurrentScore.isExactMatch()) {
+        outcome = GAMEWON;
+    }
+    else if (mBoard.getCurrentRound() < TOTALROUNDSALLOWED) {
+        outcome = GAMENOTOVER;
+    }
+    // else if (mBoard.getCurrentRound() == TOTALROUNDSALLOWED && mBoard.getMoveForRound(mBoard.getCurrentRound()).to_string() == mWinningMove.to_string()) {
+    //     outcome = GAMELOST;
+    // }
+    else {
+        outcome = GAMELOST;
+    }
+
+    return outcome;
 }
 
 // stringify the current GAMEOUTCOME value
