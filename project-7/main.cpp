@@ -115,9 +115,11 @@ int main( ) {
     // cout << s.to_string() << endl;
 
     // wrong case
+    // cout << s.to_string().length() << endl;
     assert( s.to_string() == "____" );
     theAnswer.setPieces( "rbrb" );
     s = Score( m, theAnswer );
+    // cout << s.to_string() << endl;
     assert( s.isExactMatch() == true );
 
     // right case
@@ -188,6 +190,9 @@ int main( ) {
     cout << endl;
 
     // more stuff
+    Move myAnswer;
+    myAnswer.setPieces( "YOYO" );
+    
     Move m99;
     m99.setPieces("YBOB");
     Move m88;
@@ -196,16 +201,16 @@ int main( ) {
     m77.setPieces("OOYO");
 
     Score s99;
-    s99 = Score(m99, theAnswer);
+    s99 = Score(m99, myAnswer);
     Score s88;
-    s88 = Score(m88, theAnswer);
+    s88 = Score(m88, myAnswer);
     Score s77;
-    s77 = Score(m77, theAnswer);
+    s77 = Score(m77, myAnswer);
 
     cout << s99.to_string() << endl;
     cout << s88.to_string() << endl;
     cout << s77.to_string() << endl;
-    assert(s99.to_string() == "R_R_");
+    assert(s99.to_string() == "R_M_");
     assert(s88.to_string() == "_R_R");
     assert(s77.to_string() == "_RRR");
 
