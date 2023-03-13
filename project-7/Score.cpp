@@ -61,14 +61,20 @@ Score::Score( Move move, Move answer )
     // MAYBE
     for (int i = 0; i < REQUIREDLENGTH; i++) {
         // begin counting j at i + 1, this will never compare index j = i because previous conditions above checked that index already
-        for (int j = i + 1; j < i + REQUIREDLENGTH; j++) {  // stop counting after iterating over a total of 3 indicies
-            int k = j % 4;  // wrap around the array to continue iteration when index meets the end
+        for (int j = 0; j < REQUIREDLENGTH; j++) {  // stop counting after iterating over a total of 3 indicies
+            // update changed from:
+            // j = i + 1; j < i + REQUIREDLENGTH; j++;
+            // which means we won't use wrapping method anymore with iterator k
+            // int k = j % 4;  // wrap around the array to continue iteration when index meets the end
+            // want MAYBE spot to show up prioritizing to the left of the move[] array
+            // instead of always to the right of the answer[] array
+            // also changed k in condition below to j
             if (array[i] != RIGHT &&  // ignore the RIGHT scores, which follows the answer indicies
-                array[k] != RIGHT &&  // ignore the RIGHT scores, which follows the move indicies
-                array[k] != MAYBE &&  // ignore previous MAYBE assignments, which follows the move indicies
-                answer.getPiece(i).getColor() == move.getPiece(k).getColor()) {  // compare index i in answer[] with index i + 1 in move[]
+                array[j] != RIGHT &&  // ignore the RIGHT scores, which follows the move indicies
+                array[j] != MAYBE &&  // ignore previous MAYBE assignments, which follows the move indicies
+                answer.getPiece(i).getColor() == move.getPiece(j).getColor()) {  // compare index i in answer[] with index i + 1 in move[]
                 
-                array[k] = MAYBE;  // once we find a matching element (not in the same index), set to MAYBE
+                array[j] = MAYBE;  // once we find a matching element (not in the same index), set to MAYBE
                 break;  // break out of this for loop and continue to the next i iteration (next element in answer[])
                 // this will prevent counting duplicates for MAYBE and makes the answer[] element unique to the move[] element
             }

@@ -63,7 +63,7 @@ namespace cs31
     int Board::getCurrentRound() const
     {
         // for now...
-        return( -10 );
+        return mRoundCount;
     }
 
     // TODO acquire a Move for a particular round of play
@@ -72,8 +72,13 @@ namespace cs31
     Move Board::getMoveForRound( int round ) const
     {
         // for now...
-        Move m;
-        return( m );
+        if (round <= mRoundCount && round >= 0) {
+            return moves[round];
+        }
+        else {
+            std::logic_error e ("invalid round number");
+            throw e;
+        }
     }
 
     // TODO acquire a Move for a particular round of play
@@ -82,8 +87,13 @@ namespace cs31
     Score Board::getScoreForRound( int round ) const
     {
         // for now...
-        Score s;
-        return( s );
+        if (round <= mRoundCount && round >= 0) {
+            return scores[round];
+        }
+        else {
+            std::logic_error e ("invalid round number");
+            throw e;
+        }
     }
 
     

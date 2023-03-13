@@ -135,59 +135,59 @@ int main( ) {
     Move a1;
     a1.setPieces("GGPP");
     Score s1(m1, a1);
-    cout << s1.to_string() << endl;
+    // cout << s1.to_string() << endl;
 
     Move m2;
     m2.setPieces("GPOB");
     Move a2;
     a2.setPieces("GOPB");
     Score s2(m2, a2);
-    cout << s2.to_string() << endl;
+    // cout << s2.to_string() << endl;
 
     Move m3;
     m3.setPieces("GGOP");
     Move a3;
     a3.setPieces("OPGG");
     Score s3(m3, a3);
-    cout << s3.to_string() << endl;
+    // cout << s3.to_string() << endl;
 
     Move m4;
     m4.setPieces("GGOP");
     Move a4;
     a4.setPieces("BYBY");
     Score s4(m4, a4);
-    cout << s4.to_string() << endl;
+    // cout << s4.to_string() << endl;
 
     Move m5;
     m5.setPieces("GGOP");
     Move a5;
     a5.setPieces("OPGY");
     Score s5(m5, a5);
-    cout << s5.to_string() << endl;
+    // cout << s5.to_string() << endl;
 
     Move m6;
     m6.setPieces("GGOP");
     Move a6;
     a6.setPieces("POGB");
     Score s6(m6, a6);
-    cout << s6.to_string() << endl;
+    // cout << s6.to_string() << endl;
 
     Move m7;
     m7.setPieces("GGYY");
     Move a7;
     a7.setPieces("YBGB");
     Score s7(m7, a7);
-    cout << s7.to_string() << endl;
+    // cout << s7.to_string() << endl;
 
     Move m8;
     m8.setPieces("GGGY");
     Move a8;
     a8.setPieces("YGGB");
     Score s8(m8, a8);
-    cout << s8.to_string() << endl;
+    // cout << s8.to_string() << endl;
 
 
-    cout << endl;
+    // cout << endl;
 
     // more stuff
     Move myAnswer;
@@ -207,9 +207,9 @@ int main( ) {
     Score s77;
     s77 = Score(m77, myAnswer);
 
-    cout << s99.to_string() << endl;
-    cout << s88.to_string() << endl;
-    cout << s77.to_string() << endl;
+    // cout << s99.to_string() << endl;
+    // cout << s88.to_string() << endl;
+    // cout << s77.to_string() << endl;
     assert(s99.to_string() == "R_M_");
     assert(s88.to_string() == "_R_R");
     assert(s77.to_string() == "_RRR");
@@ -223,7 +223,9 @@ int main( ) {
     s = Score( m, theAnswer );
     b.endRound( m, s );
     assert( b.getCurrentRound() == 1 );
+    // cout << b.getMoveForRound(0).to_string() << endl;
     assert( b.getMoveForRound( 0 ).to_string() == "POPO" );
+    // cout << b.getScoreForRound(0).to_string() << endl;
     assert( b.getScoreForRound( 0 ).to_string() == "MM__" );
 
     Mastermind game1( "rbyo" );

@@ -77,7 +77,7 @@ Score Mastermind::endRound( Move m )
     return( s );
 }
 
-// TO DO select the right GAMEOUTCOME for this game
+// TODO select the right GAMEOUTCOME for this game
 GAMEOUTCOME  Mastermind::determineGameOutcome( ) const
 {
     // for now...
