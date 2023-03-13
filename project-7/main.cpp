@@ -2,8 +2,6 @@
 //  main.cpp
 //  Mastermind
 //
-//  Created by Howard Stahl on 9/21/22.
-//
 
 #include <iostream>
 #include <cassert>

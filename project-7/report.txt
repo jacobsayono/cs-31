@@ -1,0 +1,203 @@
+Jacob Sayono
+50536881
+CS 31 Project 7
+
+In this project, we implemented a fun program that mimicks the popular
+board game called Mastermind. I personally enjoy this board game so much.
+
+This project introduce us to more in-depth concept with OOP concerning classes.
+The main purpose of this project is to let us learn how to read existing code
+and implement or fix features to flesh out this skeleton program.
+
+It took quite a long time to figure out how to connect each parts of the code
+to each other, but with enough time and practice, I eventually figured it out.
+
+I believe the biggest time spend on this project was implementing the
+Score::Score(Move move, Move answer) {} constructor.
+
+It took me many trials to get this right and I wanted to give up many times.
+I tried different methods to create an algorithm that can create a score
+of the index as RIGHT, MAYBE, or WRONG. I finally drafted a working algorithm
+by drawing on my iPad, that can check the 2 arrays of size 4 (move[] and answer[])
+correctly based on the given requirements. Then, I adjusted the slight output errors
+by correcting each line of code, then outputting in my terminal again to
+compare the differences, making small adjustments each time.
+
+Overall, I feel much more comfortable working with classes and OOP.
+I am happy to be able to play Mastermind on my terminal,
+a work that I contributed to that feels so satisfying to accomplish.
+
+Here is a list of the test data:
+
+// test code
+Piece p;
+assert( p.getColor() == NOTVALID );
+p = Piece( "R" );
+assert( p.getColor() == RED );
+assert( p.getColorAsString() == "R" );
+
+Move m;
+p = m.getPiece( 0 );
+assert( p.getColor() == NOTVALID );
+m.setPieces( "RBRB" );
+p = m.getPiece( 2 );
+assert( p.getColor() == RED );
+m.setPiece( 2, 'y' );
+p = m.getPiece( 2 );
+assert( p.getColor() == YELLOW );
+
+Score s;
+assert( s.isExactMatch()  == false );
+assert( s.getAnswer( 2 ) == WRONG );
+m.setPieces( "RBRB" );
+
+Move mM;
+mM.setPieces( "OYOY" );
+
+Move mR;
+mR.setPieces("YOYO");
+Move theAnswer;
+theAnswer.setPieces( "YOYO" );
+s = Score( m, theAnswer );
+
+Score sM;
+sM = Score(mM, theAnswer);
+Score sR;
+sR = Score(mR, theAnswer);
+
+// cout << s.to_string() << endl;
+// cout << "here" << endl;
+assert( s.isExactMatch() == false );
+// cout << s.to_string() << endl;
+
+// wrong case
+// cout << s.to_string().length() << endl;
+assert( s.to_string() == "____" );
+theAnswer.setPieces( "rbrb" );
+s = Score( m, theAnswer );
+// cout << s.to_string() << endl;
+assert( s.isExactMatch() == true );
+
+// right case
+assert( s.to_string() == "RRRR" );
+assert(sR.to_string() == "RRRR" );
+
+// maybe case
+assert(sM.to_string() == "MMMM");
+
+
+Move m1;
+m1.setPieces("GGPP");
+Move a1;
+a1.setPieces("GGPP");
+Score s1(m1, a1);
+// cout << s1.to_string() << endl;
+
+Move m2;
+m2.setPieces("GPOB");
+Move a2;
+a2.setPieces("GOPB");
+Score s2(m2, a2);
+// cout << s2.to_string() << endl;
+
+Move m3;
+m3.setPieces("GGOP");
+Move a3;
+a3.setPieces("OPGG");
+Score s3(m3, a3);
+// cout << s3.to_string() << endl;
+
+Move m4;
+m4.setPieces("GGOP");
+Move a4;
+a4.setPieces("BYBY");
+Score s4(m4, a4);
+// cout << s4.to_string() << endl;
+
+Move m5;
+m5.setPieces("GGOP");
+Move a5;
+a5.setPieces("OPGY");
+Score s5(m5, a5);
+// cout << s5.to_string() << endl;
+
+Move m6;
+m6.setPieces("GGOP");
+Move a6;
+a6.setPieces("POGB");
+Score s6(m6, a6);
+// cout << s6.to_string() << endl;
+
+Move m7;
+m7.setPieces("GGYY");
+Move a7;
+a7.setPieces("YBGB");
+Score s7(m7, a7);
+// cout << s7.to_string() << endl;
+
+Move m8;
+m8.setPieces("GGGY");
+Move a8;
+a8.setPieces("YGGB");
+Score s8(m8, a8);
+// cout << s8.to_string() << endl;
+
+
+// cout << endl;
+
+// more stuff
+Move myAnswer;
+myAnswer.setPieces( "YOYO" );
+
+Move m99;
+m99.setPieces("YBOB");
+Move m88;
+m88.setPieces("OOOO");
+Move m77;
+m77.setPieces("OOYO");
+
+Score s99;
+s99 = Score(m99, myAnswer);
+Score s88;
+s88 = Score(m88, myAnswer);
+Score s77;
+s77 = Score(m77, myAnswer);
+
+// cout << s99.to_string() << endl;
+// cout << s88.to_string() << endl;
+// cout << s77.to_string() << endl;
+assert(s99.to_string() == "R_M_");
+assert(s88.to_string() == "_R_R");
+assert(s77.to_string() == "_RRR");
+
+
+
+Board b;
+assert( b.getCurrentRound() == 0 );
+m.setPieces( "POPO" );
+theAnswer.setPieces( "YYOP" );
+s = Score( m, theAnswer );
+b.endRound( m, s );
+assert( b.getCurrentRound() == 1 );
+// cout << b.getMoveForRound(0).to_string() << endl;
+assert( b.getMoveForRound( 0 ).to_string() == "POPO" );
+// cout << b.getScoreForRound(0).to_string() << endl;
+assert( b.getScoreForRound( 0 ).to_string() == "MM__" );
+
+// check throw logic error
+// b.getScoreForRound(40).to_string();
+
+Mastermind game1( "rbyo" );
+assert( game1.answer() == "RBYO" );
+Move move;
+move.setPieces("BBBB");
+Move answer;
+answer.setPieces("RBYO");
+// cout << Score(move, answer).to_string() << endl;
+assert( game1.gameIsOver() == false );
+m = game1.play( "BBBB" );
+s = game1.endRound( m );
+// cout << s.to_string() << endl;
+assert( s.to_string() == "_R__" );
+
+// cout << "all tests passed!" << endl;
