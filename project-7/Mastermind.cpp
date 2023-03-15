@@ -2,9 +2,7 @@
 //  Mastermind.cpp
 //  Mastermind
 //
-//  Created by Howard Stahl on 2/21/22.
-//  Copyright © 2022 Howard Stahl. All rights reserved.
-//
+
 
 #include "Mastermind.h"
 #include <string>
