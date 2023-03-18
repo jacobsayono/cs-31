@@ -36,9 +36,8 @@ int main() {
 
 
     // pointer variables work differently with squiggle scope
-    int something = foo();
+    int* something = foo();
     bar(something);
-    // delete pl;
 
     Candy c = {"M&Ms", "Mars", 1.50};
     Candy e;
@@ -64,16 +63,15 @@ int main() {
     assert(std::to_string(cost) == "123.450000");  // precision of 6 digits to the right of decimal
 }
 
-int foo();
-int foo() {
-    int* pl = new int(100);
-    // use variable
-    return *pl;
+int* foo();
+int* foo() {
+    int* p = new int(100);
+    return p;
 }
 
 void bar(int something);
-void bar(int something) {
-    // delete pl;
+void bar(int* something) {
+    delete something;
 }
 
 class Tire {
@@ -147,7 +145,7 @@ struct Candy {
 // function overloading
 int fooo(double i);
 int fooo(int i);  // OK
-// double fooo(double fooo);  // NOT OK
+// double fooo(double i);  // NOT OK
 
 
 

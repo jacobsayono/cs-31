@@ -39,7 +39,7 @@ int main() {
 }
 
 /*
-sorted order:
+sorted order smallest to biggest:
 "A"
 "AA"
 "AAA"

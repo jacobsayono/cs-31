@@ -11,6 +11,14 @@ using namespace std;
 
 int main() {
 
+    int num;
+    cout << "enter your number: ";
+    cin >> num;
+    int score = num % 100;
+    int id = (num - score) / 100;
+
+    cout << "id:" << id << "\t" << "score: " << score << endl;
+
     int x;
     cout << "enter a 3 digit number: ";
     cin >> x;
